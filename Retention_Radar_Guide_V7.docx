@@ -1,0 +1,137 @@
+**⬡  RETENTION RADAR**
+
+Monday Report Guide
+
+*Version 7  ·  5 reports  ·  Mindbody*
+
+*Hand this to your report runner. Takes ~30 minutes each Monday.*
+
+This guide tells your report runner exactly which 5 reports to export from Mindbody every Monday, how to check each one is correct before sending, and how to send them. Nothing more.
+
+| The entire Retention Radar system runs on 5 reports. Previous versions used 9. Reports 1, 4, 5 and 7 have been removed — their data is fully covered by the remaining 5. Every report must be run with NO filters. Filtered data produces incorrect member flags. |
+| --- |
+
+# **The 5 reports**
+
+| **#** | **Report name** | **Format** | **Date range** | **How to send** | **What it does** |
+| --- | --- | --- | --- | --- | --- |
+| 2 | Revenue & Sales | **CSV — attach to email** | Prior Mon–Sun | Email attachment | Financial section of the report |
+| 3 | Active Member Count | Google Sheet — link in email | TODAY snapshot | Google Drive link | Member count, new member detection |
+| 6 | Suspended Members | Google Sheet — link in email | TODAY snapshot | Google Drive link | Hold cards, welcome-back detection |
+| 8 | Client Contact Details | **CSV — attach to email** | TODAY snapshot | Email attachment | Phone numbers on every card |
+| 9 | Client Health Report | Google Sheet — link in email | TODAY snapshot | Google Drive link | ALL member flags — urgent, sliding, watch |
+
+| **⚠  Run ALL reports with NO filters. Do not filter by payment method, location, sale type, membership type, or any other category. Filtered data will produce incorrect results and missed at-risk members.** |
+| --- |
+
+# **Step by step**
+
+## **Step 1 — Run all 5 reports in Mindbody**
+
+- Log in to Mindbody → Reports
+
+- "Prior Mon–Sun" = the 7 days ending last Sunday
+
+- "TODAY snapshot" = run as of today — no date range needed
+
+- Run every report with NO filters applied
+
+## **Step 2 — Check each file before converting or sending**
+
+**This is the most important step. Open each file and confirm it looks correct before doing anything else. If a check fails, fix it and re-export — do not send an incorrect file.**
+
+| **Report** | **Open the file and check...** | **Pass ✅** | **Fail 🛑 — action** |
+| --- | --- | --- | --- |
+| **Report 2 Revenue CSV** | Open the CSV. Look at the Item name column. | You can see membership rows AND non-membership items — packs, drop-ins, late cancel fees, sauna, etc. | Only membership autopay rows visible → filter is on. Turn off all filters and re-export. |
+| **Report 3 Active Members** | Open the CSV. Look at the very first column. | First column shows membership group headings e.g. "Unlimited Membership Members" | "Sale Date" in first column → wrong file sent (revenue file, not active members). Re-export the correct report. |
+| **Report 6 Suspended** | Open the Google Sheet. Check the columns. | "Member To" column is present with suspension end dates for each member. | No "Member To" column → wrong report. Re-export Suspended Members report. |
+| **Report 8 Contacts CSV** | Open the CSV. Check the columns. | A Phone or Mobile column is present with actual numbers. | Phone column missing → re-export with mobile phone field included. |
+| **Report 9 Client Health** | Open the Google Sheet. Check all columns are present. | All 6 columns present: Client, Membership, Last Visit Date, Monthly Visit Avg (6mo), Visits last 30d, Fall-off Rate. | Any column missing → wrong report variant. Re-run Client Health Report in Mindbody. |
+| **Google Sheets (Reports 3, 6, 9)** | After converting to Google Sheet, click Share. | "Anyone with the link can view" is selected. Link works when opened in a new browser tab. | "Restricted" access → owner cannot open the file. Change to "Anyone with the link can view". |
+
+## **Step 3 — Convert Reports 3, 6 and 9 to Google Sheets**
+
+- Export Report 3, 6 and 9 as CSV from Mindbody
+
+- Upload each CSV to Google Drive
+
+- Right-click → Open with Google Sheets → File → Save as Google Sheets
+
+- Rename each file: report number + name + date  e.g.  3-active-members_07jul
+
+- Move to the shared weekly reports folder
+
+- Delete last week's files from the folder before uploading new ones
+
+- Click Share on each file → set to "Anyone with the link can view" → copy the link
+
+## **Step 4 — Keep Reports 2 and 8 as CSV files**
+
+- Do NOT convert Revenue (Report 2) or Client Contacts (Report 8) to Google Sheets
+
+- Save both as CSV with the correct filename (see naming guide below)
+
+- Attach both CSV files directly to the email — do not upload to Drive
+
+## **Step 5 — Send one email with everything**
+
+| To: [Owner] Subject: Retention Radar Reports ready — [date] Body — paste 3 Google Sheet links:    Report 3 — Active Members: [paste link]    Report 6 — Suspended Members: [paste link]    Report 9 — Client Health: [paste link] Attachments — 2 CSV files:    2-revenue_[date].csv    8-client-contacts_[date].csv |
+| --- |
+
+# **File naming**
+
+Format: [number]-[name]_[day][month]   e.g.  3-active-members_07jul
+
+| **Report** | **Example filename** | **Format** |
+| --- | --- | --- |
+| 2 — Revenue | **2-revenue_07jul.csv** | **CSV — email attachment** |
+| 3 — Active Member Count | 3-active-members_07jul | Google Sheet — Drive link |
+| 6 — Suspended Members | 6-suspended_07jul | Google Sheet — Drive link |
+| 8 — Client Contact Details | **8-client-contacts_07jul.csv** | **CSV — email attachment** |
+| 9 — Client Health Report | 9-client-health_07jul | Google Sheet — Drive link |
+
+# **Common errors to watch for**
+
+These errors have happened before. Check for them every week.
+
+### **Revenue file is filtered**
+
+If the revenue CSV only contains membership autopay rows and nothing else — no packs, no drop-ins, no sauna, no fees — the online store filter is turned on. Turn off all filters in Mindbody and re-export.
+
+### **Wrong active members file**
+
+If the first column of the active members CSV shows "Sale Date" as a heading — you have exported the revenue or sales report instead of the active members report. These look similar. The active members report shows membership group headings like "Unlimited Membership Members" in the first column. Re-export the correct report.
+
+### **Google Sheet not shared publicly**
+
+After converting to Google Sheets, the default sharing is "Restricted" — only you can open it. The owner's Claude connection cannot access a restricted file and will return an error. Always set sharing to "Anyone with the link can view" before sending.
+
+### **Client Health Report missing columns**
+
+If the Client Health Report does not show all 6 required columns (Client, Membership, Last Visit Date, Monthly Visit Avg 6mo, Visits last 30 days, Fall-off Rate) — you have selected a different report variant in Mindbody. Go back into Reports, find the Client Health Report specifically, and re-export.
+
+### **Last week****'****s files still in the folder**
+
+Always delete the previous week's Google Sheets from the shared folder before uploading new ones. Keeping old files in the folder can cause the owner to accidentally use last week's data.
+
+# **Key reminders**
+
+- NO filters on any report — run everything completely unfiltered
+
+- Report 2 (Revenue) must include online store, packs, drop-ins, sauna, fees — everything
+
+- Report 3 (Active Members) must show membership group headings, not "Sale Date"
+
+- Report 9 (Client Health) must include all 6 columns — especially Monthly Visit Avg and Fall-off Rate
+
+- All Google Sheets must be shared to "Anyone with the link can view" before sending
+
+- Reports 2 and 8 are CSV email attachments — never convert these to Google Sheets
+
+- Delete last week's Google Sheets from the folder before uploading new ones
+
+- "Prior Mon–Sun" = the 7 days ending last Sunday
+
+- "TODAY snapshot" = run today with no date range
+
+*⬡  Retention Radar  ·  Monday Report Guide V7  ·  Mindbody edition*

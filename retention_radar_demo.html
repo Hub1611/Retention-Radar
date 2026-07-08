@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Retention Radar — Elevate Pilates Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f5f2ed;--surface:#fff;--border:#e4ddd4;--text:#1a1714;--sub:#7a7068;--mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif;--red:#c0392b;--red-bg:#fdf2f0;--amber:#b76000;--amber-bg:#fdf6ed;--green:#1a6b3c;--green-bg:#f0faf4;--teal:#0d7377;--teal-bg:#f0fafa;--purple:#6b3fa0;--purple-bg:#f7f3fd;--blue:#1a4a8a;--blue-bg:#f0f4fd}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);font-family:var(--sans);color:var(--text);font-size:14px;padding:12px}
+.wrap{max-width:680px;margin:0 auto}
+
+/* DEMO BANNER */
+.demo-banner{background:#1a1714;color:#f5f2ed;text-align:center;padding:10px 16px;border-radius:10px;margin-bottom:14px;font-size:12px;font-family:var(--mono);letter-spacing:0.5px}
+.demo-banner strong{color:#f0c040}
+
+/* HEADER */
+.hdr{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid var(--text)}
+.hdr-title{font-size:20px;font-weight:700;letter-spacing:-.3px}
+.hdr-sub{font-family:var(--mono);font-size:10px;color:var(--sub);margin-top:3px}
+.hdr-right{text-align:right}
+.hdr-date{font-family:var(--mono);font-size:11px;color:var(--sub)}
+.rr-badge{font-family:var(--mono);font-size:9px;font-weight:600;color:#1a4a8a;background:#f0f4fd;border:1px solid #c2d3f5;padding:2px 8px;border-radius:10px;margin-top:4px;display:inline-block}
+
+/* SUMMARY */
+.sum-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.sum-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 12px}
+.sum-label{font-family:var(--mono);font-size:9px;color:var(--sub);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}
+.sum-val{font-size:24px;font-weight:800;line-height:1}
+.sum-sub{font-family:var(--mono);font-size:9px;color:var(--sub);margin-top:3px}
+
+/* BRIEFING */
+.briefing{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:12px;font-size:12px;line-height:1.7;color:var(--sub)}
+.briefing strong{color:var(--text)}
+.ticks-saved-row{text-align:right;font-family:var(--mono);font-size:10px;color:var(--sub);margin-bottom:10px;margin-top:-6px}
+
+/* FINANCIAL */
+.fin{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:14px}
+.fin-title{font-family:var(--mono);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--sub);margin-bottom:10px}
+.fin-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.fin-block{background:var(--bg);border-radius:8px;padding:10px 12px}
+.fin-block-label{font-family:var(--mono);font-size:9px;color:var(--sub);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.fin-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;font-size:12px}
+.fin-row-label{color:var(--sub)}
+.fin-row-val{font-weight:600;font-family:var(--mono)}
+.fin-total{display:flex;justify-content:space-between;align-items:center;padding-top:6px;border-top:1px solid var(--border);font-weight:700}
+.fin-total-val{font-family:var(--mono);font-size:15px}
+.be-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.be-card{border-radius:8px;padding:10px 12px;border:1px solid var(--border);background:var(--bg)}
+.be-label{font-family:var(--mono);font-size:9px;color:var(--sub);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.be-val{font-size:18px;font-weight:800;font-family:var(--mono)}
+.be-gap{font-size:11px;font-weight:600;margin-top:4px}
+
+/* OWNER ESCALATIONS */
+.owner-box{background:var(--amber-bg);border:1px solid #f5ddb8;border-radius:12px;padding:14px 16px;margin-bottom:14px}
+.owner-box .fin-title{color:#8a5a00}
+.owner-item{display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid #f0e0c0;font-size:12px;line-height:1.5;color:#5a3a00}
+.owner-item:last-child{border-bottom:none}
+.owner-item .oi-icon{flex-shrink:0}
+.owner-item strong{color:#3a2400}
+
+/* THRIVING */
+.card-thriving{border-left:4px solid var(--green)}
+.thriving-note{font-size:11px;color:var(--sub);font-style:italic;margin-bottom:10px}
+.script-thriving{background:var(--green-bg);border-left:3px solid var(--green);color:#0a3a1e}
+
+/* DEMO INSIGHT CALLOUT (demo-only annotation, not part of the live report) */
+.demo-insight{border:1.5px dashed #93b4f0;background:var(--blue-bg);border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:11.5px;line-height:1.6;color:#1a2a5a}
+.demo-insight .di-label{font-family:var(--mono);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--blue);margin-bottom:4px;display:block}
+
+/* SECTIONS */
+.section{margin-bottom:16px}
+.sec-hdr{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.sec-badge{font-family:var(--mono);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;padding:3px 8px;border-radius:20px}
+.badge-urgent{background:var(--red-bg);color:var(--red);border:1px solid #f5c6c2}
+.badge-sliding{background:var(--amber-bg);color:var(--amber);border:1px solid #f5ddb8}
+.badge-watch{background:var(--blue-bg);color:var(--blue);border:1px solid #c2d3f5}
+.badge-welcome{background:var(--teal-bg);color:var(--teal);border:1px solid #b0e0e0}
+.badge-suspended{background:var(--purple-bg);color:var(--purple);border:1px solid #d8c5f5}
+.badge-new{background:var(--green-bg);color:var(--green);border:1px solid #b0e0c5}
+.badge-owner{background:var(--amber-bg);color:var(--amber);border:1px solid #f5ddb8}
+.badge-thriving{background:var(--green-bg);color:var(--green);border:1px solid #b0e0c5}
+.sec-count{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--sub)}
+.sec-desc{font-size:11px;color:var(--sub);margin-left:auto;font-style:italic}
+
+/* TIER GROUPS */
+.tier-group{margin-bottom:10px}
+.tier-hdr{display:flex;align-items:center;gap:6px;padding:5px 10px;background:var(--bg);border-radius:6px;margin-bottom:6px;border:1px solid var(--border)}
+.tier-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.tier-label{font-family:var(--mono);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.tier-count{font-family:var(--mono);font-size:10px;color:var(--sub);margin-left:4px}
+.tier-context{font-size:10px;color:var(--sub);margin-left:auto;font-style:italic}
+
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;margin-bottom:8px;overflow:hidden}
+.card-urgent{border-left:4px solid var(--red)}
+.card-sliding{border-left:4px solid var(--amber)}
+.card-watch{border-left:4px solid #93b4f0}
+.card-welcome{border-left:4px solid var(--teal)}
+.card-new{border-left:4px solid var(--green)}
+.card-body{padding:12px 14px}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;gap:8px;flex-wrap:wrap}
+.card-name{font-size:15px;font-weight:700;letter-spacing:-.2px}
+.mem-badge{font-family:var(--mono);font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;border-style:solid;border-width:1px;white-space:nowrap}
+.price-badge{font-family:var(--mono);font-size:10px;color:var(--sub);background:var(--bg);padding:2px 7px;border-radius:10px;border:1px solid var(--border)}
+.cap-badge{font-family:var(--mono);font-size:9px;color:var(--purple);background:var(--purple-bg);padding:2px 6px;border-radius:10px;border:1px solid #d8c5f5;font-weight:600}
+.path-badge{font-family:var(--mono);font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;border:1px solid}
+.path-growing{color:var(--green);background:var(--green-bg);border-color:#b0e0c5}
+.path-steady{color:var(--teal);background:var(--teal-bg);border-color:#b0e0e0}
+.card-stats{display:flex;gap:14px;margin-bottom:8px;flex-wrap:wrap}
+.stat{display:flex;flex-direction:column}
+.stat-val{font-family:var(--mono);font-size:14px;font-weight:700}
+.stat-lbl{font-family:var(--mono);font-size:9px;color:var(--sub);text-transform:uppercase;letter-spacing:.4px;margin-top:1px}
+.context-note{font-size:11px;color:var(--sub);background:var(--bg);padding:6px 10px;border-radius:6px;margin-bottom:8px;line-height:1.5}
+.script{font-size:12px;border-radius:6px;padding:8px 10px;margin-bottom:8px;line-height:1.6;font-style:italic}
+.script-urgent{background:var(--red-bg);border-left:3px solid var(--red);color:#5a1a14}
+.script-sliding{background:var(--amber-bg);border-left:3px solid var(--amber);color:#5a3a00}
+.script-welcome{background:var(--teal-bg);border-left:3px solid var(--teal);color:#0a3a3d}
+.script-new{background:var(--green-bg);border-left:3px solid var(--green);color:#0a3a1e}
+.script-watch{background:var(--blue-bg);border-left:3px solid #93b4f0;color:#1a2a5a}
+.card-actions{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.btn-call{display:inline-flex;align-items:center;gap:4px;padding:6px 10px;background:#1a4a8a;color:#fff;border-radius:8px;text-decoration:none;font-size:12px;font-weight:600}
+.no-phone{font-size:11px;color:var(--red);font-family:var(--mono)}
+.ticks{display:flex;gap:6px;flex-wrap:wrap}
+.tick{padding:5px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);font-size:11px;font-weight:600;cursor:pointer;font-family:var(--sans);color:var(--text);transition:all .15s}
+.tick:hover{opacity:.8}
+.tick-contacted{background:var(--green-bg)!important;color:var(--green)!important;border-color:#9dd5b5!important}
+.tick-cancelled{background:var(--red-bg)!important;color:var(--red)!important;border-color:#f5b8b0!important}
+.tick-hold{background:var(--purple-bg)!important;color:var(--purple)!important;border-color:#c5a8f0!important}
+.sus-card{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--purple);border-radius:12px;margin-bottom:6px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center}
+.sus-name{font-weight:700;font-size:13px}
+.sus-open{font-family:var(--mono);font-size:10px;color:var(--purple);background:var(--purple-bg);padding:2px 7px;border-radius:10px}
+.sus-date{font-family:var(--mono);font-size:11px;color:var(--sub);margin-top:2px}
+@media(max-width:480px){.sum-bar{grid-template-columns:repeat(2,1fr)}.fin-grid{grid-template-columns:1fr}.be-row{grid-template-columns:1fr}.card-stats{gap:10px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="demo-banner">
+  ⬡ <strong>RETENTION RADAR — DEMO</strong> &nbsp;·&nbsp; Fictional studio data &nbsp;·&nbsp; All features live and interactive
+</div>
+
+<div class="hdr">
+  <div>
+    <div class="hdr-title">Elevate Pilates</div>
+    <div class="hdr-sub">Mia's Weekly Action List</div>
+  </div>
+  <div class="hdr-right">
+    <div class="hdr-date">Week of 30 Jun – 6 Jul 2026<br>Generated 8 July 2026</div>
+    <div class="rr-badge">⬡ Retention Radar</div>
+  </div>
+</div>
+
+<div class="sum-bar">
+  <div class="sum-card">
+    <div class="sum-label">Active members</div>
+    <div class="sum-val" style="color:#c0392b">156</div>
+    <div class="sum-sub">12 to breakeven (168)</div>
+  </div>
+  <div class="sum-card">
+    <div class="sum-label">Urgent outreach</div>
+    <div class="sum-val" style="color:#c0392b">11</div>
+    <div class="sum-sub">Contact today</div>
+  </div>
+  <div class="sum-card">
+    <div class="sum-label">Sliding</div>
+    <div class="sum-val" style="color:#b76000">3</div>
+    <div class="sum-sub">Monitor closely</div>
+  </div>
+  <div class="sum-card">
+    <div class="sum-label">Weekly revenue</div>
+    <div class="sum-val" style="color:#c0392b">$9,240</div>
+    <div class="sum-sub">$40 below target</div>
+  </div>
+</div>
+
+<div class="briefing">
+  <strong>This week at a glance.</strong> Elevate Pilates has <strong>156 active paying members</strong>, 12 from breakeven of 168. Revenue came in at <strong>$9,240.00</strong> — $40 below the weekly target of $9,200. <strong>11 members</strong> need urgent outreach today, grouped by membership tier below. <strong>3</strong> are sliding vs their personal average — early warning before they ghost. <strong>5</strong> on watch list. 2 members returned from suspension this week. <strong>1 new member</strong>: Bianca Cortez (Unlimited, $268/mo). <strong>1 item</strong> flagged for you below. On the brighter side, <strong>3 members</strong> are thriving this month — some growing, some just reliably showing up like clockwork — plus <strong>2 more</strong> climbing toward it with a smaller but real uptick.
+</div>
+
+<div class="ticks-saved-row" id="ticks-saved">Ticks save automatically to this device</div>
+
+<!-- OWNER ESCALATIONS -->
+<div class="section">
+  <div class="sec-hdr"><span class="sec-badge badge-owner">⚑ For Mia</span><span class="sec-count">3</span><span class="sec-desc">Escalations this week</span></div>
+  <div class="owner-box">
+    <div class="fin-title">Notes for the owner</div>
+    <div class="owner-item"><span class="oi-icon">📵</span><span><strong>Missing phone number</strong> — Lily Drummond (Lite) has no mobile on file in Mindbody. She's flagged Urgent below but can't be called until this is fixed.</span></div>
+    <div class="owner-item"><span class="oi-icon">📊</span><span><strong>Active member count is 1 lower than last week's file</strong> — worth a quick check that this matches a confirmed cancellation, not a reporting gap.</span></div>
+    <div class="owner-item"><span class="oi-icon">📞</span><span><strong>Consider a personal call</strong> — Brooke Hennessy (Unlimited, usually 8.2 visits/mo) is 28 days absent, the longest of anyone urgent this week. If she doesn't respond to the coordinator's call, a call from you may land better.</span></div>
+  </div>
+</div>
+
+<!-- FINANCIAL -->
+<div class="fin">
+  <div class="fin-title">💰 Revenue — Week of 30 Jun – 6 Jul 2026</div>
+  <div class="fin-grid">
+    <div class="fin-block">
+      <div class="fin-block-label">🔒 Stable autopay</div>
+      <div class="fin-row"><span class="fin-row-label">Elevate Unlimited</span><span class="fin-row-val">$5,280.00</span></div>
+      <div class="fin-row"><span class="fin-row-label">Elevate Core</span><span class="fin-row-val">$2,460.00</span></div>
+      <div class="fin-row"><span class="fin-row-label">Elevate Lite</span><span class="fin-row-val">$1,020.00</span></div>
+      <div class="fin-total"><span>Total stable</span><span class="fin-total-val">$8,760.00</span></div>
+    </div>
+    <div class="fin-block">
+      <div class="fin-block-label">💧 Discretionary</div>
+      <div class="fin-row"><span class="fin-row-label">No Show Fee</span><span class="fin-row-val">$160.00</span></div>
+      <div class="fin-row"><span class="fin-row-label">Late Cancel Fee</span><span class="fin-row-val">$80.00</span></div>
+      <div class="fin-row"><span class="fin-row-label">10 Class Pack</span><span class="fin-row-val">$120.00</span></div>
+      <div class="fin-row"><span class="fin-row-label">Drop In</span><span class="fin-row-val">$60.00</span></div>
+      <div class="fin-row"><span class="fin-row-label">Sauna Session</span><span class="fin-row-val">$60.00</span></div>
+      <div class="fin-total"><span>Total disc.</span><span class="fin-total-val">$480.00</span></div>
+    </div>
+  </div>
+  <div class="be-row">
+    <div class="be-card">
+      <div class="be-label">Weekly revenue</div>
+      <div class="be-val" style="color:#c0392b">$9,240.00</div>
+      <div class="be-gap" style="color:#c0392b">$40 below weekly target ($9,200)</div>
+    </div>
+    <div class="be-card">
+      <div class="be-label">Members to breakeven</div>
+      <div class="be-val" style="color:#c0392b">12</div>
+      <div class="be-gap" style="color:#7a7068">Need 168 · Have 156</div>
+    </div>
+  </div>
+</div>
+
+<!-- NEW MEMBER -->
+<div class="section">
+  <div class="sec-hdr"><span class="sec-badge badge-new">🆕 New this week</span><span class="sec-count">1</span></div>
+  <div class="card card-new">
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Bianca Cortez</div>
+        <div style="display:flex;gap:5px;flex-wrap:wrap">
+          <span class="mem-badge" style="background:#1a4a8a18;color:#1a4a8a;border-color:#1a4a8a35">Unlimited</span>
+          <span class="price-badge">$268/mo</span>
+        </div>
+      </div>
+      <div class="card-stats">
+        <div class="stat"><span class="stat-val">5 Jul</span><span class="stat-lbl">Joined</span></div>
+        <div class="stat"><span class="stat-val">$268/mo</span><span class="stat-lbl">Revenue</span></div>
+      </div>
+      <div class="script script-new">"Hey Bianca! It's Mia from Elevate Pilates — so excited to have you join us! Just wanted to reach out and say welcome. I'm here if you have any questions as you get started 🙌"</div>
+      <div class="card-actions"><a href="tel:0412388941" class="btn-call">📞 0412 388 941</a></div>
+      <div class="ticks" id="ticks-bianca_cortez">
+      <button class="tick" onclick="setTickAndSave('bianca_cortez','contacted')" id="tick-contacted-bianca_cortez">✓ Contacted</button>
+      <button class="tick" onclick="setTickAndSave('bianca_cortez','cancelled')" id="tick-cancelled-bianca_cortez">✕ Cancelled</button>
+      <button class="tick" onclick="setTickAndSave('bianca_cortez','hold')" id="tick-hold-bianca_cortez">⏸ On hold</button>
+    </div>
+    </div>
+  </div>
+</div>
+
+<!-- WELCOME BACKS -->
+<div class="section">
+  <div class="sec-hdr"><span class="sec-badge badge-welcome">👋 Welcome back</span><span class="sec-count">2</span><span class="sec-desc">Off suspension this week</span></div>
+  <div class="card card-welcome">
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Sophie Laurent</div>
+        <span class="mem-badge" style="background:#0d737718;color:#0d7377;border-color:#0d737735">Suspension ended 2 Jul</span>
+      </div>
+      <div class="script script-welcome">"Hey Sophie! Welcome back — we've missed you. So great to have you back on the reformer. Let us know if there's anything you need as you ease back in 🙌"</div>
+      <div class="card-actions"><a href="tel:0418294657" class="btn-call">📞 0418 294 657</a></div>
+      <div class="ticks" id="ticks-sophie_laurent">
+      <button class="tick" onclick="setTickAndSave('sophie_laurent','contacted')" id="tick-contacted-sophie_laurent">✓ Contacted</button>
+      <button class="tick" onclick="setTickAndSave('sophie_laurent','cancelled')" id="tick-cancelled-sophie_laurent">✕ Cancelled</button>
+      <button class="tick" onclick="setTickAndSave('sophie_laurent','hold')" id="tick-hold-sophie_laurent">⏸ On hold</button>
+    </div>
+    </div>
+  </div>
+  <div class="card card-welcome">
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Megan Ogilvy</div>
+        <span class="mem-badge" style="background:#0d737718;color:#0d7377;border-color:#0d737735">Suspension ended 4 Jul</span>
+      </div>
+      <div class="script script-welcome">"Hey Megan! Welcome back — we've missed you. So great to have you back on the reformer. Let us know if there's anything you need as you ease back in 🙌"</div>
+      <div class="card-actions"><a href="tel:0422718043" class="btn-call">📞 0422 718 043</a></div>
+      <div class="ticks" id="ticks-megan_ogilvy">
+      <button class="tick" onclick="setTickAndSave('megan_ogilvy','contacted')" id="tick-contacted-megan_ogilvy">✓ Contacted</button>
+      <button class="tick" onclick="setTickAndSave('megan_ogilvy','cancelled')" id="tick-cancelled-megan_ogilvy">✕ Cancelled</button>
+      <button class="tick" onclick="setTickAndSave('megan_ogilvy','hold')" id="tick-hold-megan_ogilvy">⏸ On hold</button>
+    </div>
+    </div>
+  </div>
+</div>
+<div class="section">
+  <div class="sec-hdr"><span class="sec-badge badge-urgent">🔴 Urgent outreach</span><span class="sec-count">11</span><span class="sec-desc">Contact today — grouped by membership</span></div>
+  <div class="tier-group">
+    <div class="tier-hdr">
+      <span class="tier-dot" style="background:#1a4a8a"></span>
+      <span class="tier-label" style="color:#1a4a8a">Unlimited</span>
+      <span class="tier-count">(4)</span>
+      <span class="tier-context">Unlimited — every missed visit is unused value</span>
+    </div>
+  <div class="card card-urgent">
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Brooke Hennessy</div>
+        <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap">
+          <span class="mem-badge" style="background:#1a4a8a18;color:#1a4a8a;border-color:#1a4a8a35">Unlimited</span>
+          <span class="price-badge">$62/wk</span>
+          
+        </div>
+      </div>
+      <div class="card-stats">
+        <div class="stat"><span class="stat-val" style="color:#c0392b">28d</span><span class="stat-lbl">Since last visit</span></div>
+        <div class="stat"><span class="stat-val">1</span><span class="stat-lbl">Visits/30d</span></div>
+        <div class="stat"><span class="stat-val">8.2</span><span class="stat-lbl">Avg/mo</span></div>
+        <div class="stat"><span class="stat-val" style="color:#c0392b">-88%</span><span class="stat-lbl">vs own avg</span></div>
+      </div>
+      <div class="context-note">Unlimited member paying $62/wk — only 1 visit this month vs personal avg 8.2/mo</div>
+      <div class="script script-urgent">"Hey Brooke, it's Mia from Elevate Pilates — we haven't seen you in a few weeks and just wanted to check in. Everything okay? Missing you in class 💙"</div>
+      <div class="card-actions"><a href="tel:0418442271" class="btn-call">📞 0418 442 271</a></div>
+      <div class="ticks" id="ticks-brooke_hennessy">
+      <button class="tick" onclick="setTickAndSave('brooke_hennessy','contacted')" id="tick-contacted-brooke_hennessy">✓ Contacted</button>
+      <button class="tick" onclick="setTickAndSave('brooke_hennessy','cancelled')" id="tick-cancelled-brooke_hennessy">✕ Cancelled</button>
+      <button class="tick" onclick="setTickAndSave('brooke_hennessy','hold')" id="tick-hold-brooke_hennessy">⏸ On hold</button>
+    </div>
+    </div>
+  </div>
+  <div class="card card-urgent">
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Georgia Forde</div>
+        <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap">
+          <span class="mem-badge" style="background:#1a4a8a18;color:#1a4a8a;border-color:#1a4a8a35">Unlimited</span>
+          <span class="price-badge">$62/wk</span>
+          
+        </div>
+      </div>
+      <div class="card-stats">
+        <div class="stat"><span class="stat-val" style="color:#c0392b">15d</span><span class="stat-lbl">Since last visit</span></div>
+        <div class="stat"><span class="stat-val">2</span><span class="stat-lbl">Visits/30d</span></div>
+        <div class="stat"><span class="stat-val">9.3</span><span class="stat-lbl">Avg/mo</span></div>
+        <div class="stat"><span class="stat-val" style="color:#c0392b">-78%</span><span class="stat-lbl">vs own avg</span></div>
+      </div>
+      <div class="context-note">Unlimited member paying $62/wk — only 2 visits this month vs personal avg 9.3/mo</div>
+      <div class="script script-urgent">"Hey Georgia! Mia from Elevate Pilates here — it's been a little while since we've seen you and we just wanted to check in. How are you going? 💙"</div>
+      <div class="card-actions"><a href="tel:0412904857" class="btn-call">📞 0412 904 857</a></div>
+      <div class="ticks" id="ticks-georgia_forde">
+      <button class="tick" onclick="setTickAndSave('georgia_forde','contacted')" id="tick-contacted-georgia_forde">✓ Contacted</button>
+      <button class="tick" onclick="setTickAndSave('georgia_forde','cancelled')" id="tick-cancelled-georgia_forde">✕ Cancelled</button>
+      <button class="tick" onclick="setTickAndSave('georgia_forde','hold')" id="tick-hold-georgia_forde">⏸ On hold</button>
+    </div>
+    </div>
+  </div>
+  <div class="card card-urgent">
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Chloe Bartlett</div>
+        <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap">
+          <span class="mem-badge" style="background:#1a4a8a18;color:#1a4a8a;border-color:#1a4a8a35">Unlimited</span>
+          <span class="price-badge">$62/wk</span>
+          
+        </div>
+      </div>
+      <div class="card-stats">
+        <div class="stat"><span class="stat-val" style="color:#b76000">9d</span><span class="stat-lbl">Since last visit</span></div>
+        <div class="stat"><span class="stat-val">2</span><span class="stat-lbl">Visits/30d</span></div>
+        <div class="stat"><span class="stat-val">7.8</span><span class="stat-lbl">Avg/mo</span></div>
+        <div class="stat"><span class="stat-val" style="color:#c0392b">-74%</span><span class="stat-lbl">vs own avg</span></div>
+      </div>
+      <div class="context-note">Unlimited member paying $62/wk — only 2 visits this month vs personal avg 7.8/mo</div>
+      <div class="script script-urgent">"Hey Chloe, Mia from Elevate Pilates — just checking in! You're on Unlimited so you can train as often as you like, and we've noticed you haven't been in as much this month. Is everything okay? We'd love to see you back more 💙"</div>
+      <div class="card-actions"><a href="tel:0456782310" class="btn-call">📞 0456 782 310</a></div>
+      <div class="ticks" id="ticks-chloe_bartlett">
+      <button class="tick" onclick="setTickAndSave('chloe_bartlett','contacted')" id="tick-contacted-chloe_bartlett">✓ Contacted</button>
+      <button class="tick" onclick="setTickAndSave('chloe_bartlett','cancelled')" id="tick-cancelled-chloe_bartlett">✕ Cancelled</button>
+      <button class="tick" onclick="setTickAndSave('chloe_bartlett','hold')" id="tick-hold-chloe_bartlett">⏸ On hold</button>
+    </div>
+    </div>
+  </div>
+  <div class="card card-urgent">
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Harriet Cole</div>
+        <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap">
+          <span class="mem-badge" style="background:#1a4a8a18;color:#1a4a8a;border-color:#1a4a8a35">Unlimited</span>
+          <span class="price-badge">$62/wk</span>
+          
+        </div>
+      </div>
+      <div class="card-stats">
+        <div class="stat"><span class="stat-val" style="color:#555">3d</span><span class="stat-lbl">Since last visit</span></div>
+        <div class="stat"><span class="stat-val">4</span><span class="stat-lbl">Visits/30d</span></div>
+        <div class="stat"><span class="stat-val">11.2</span><span class="stat-lbl">Avg/mo</span></div>
+        <div class="stat"><span class="stat-val" style="color:#c0392b">-64%</span><span class="stat-lbl">vs own avg</span></div>
+      </div>
+      <div class="context-note">Unlimited — underusing membership. 4 visits vs personal avg 11.2/mo (-64%)</div>
+      <div class="script script-urgent">"Hey Harriet, Mia from Elevate Pilates — just a friendly check-in. We've noticed your visits have dropped a little. Everything okay? 💙"</div>
+      <div class="card-actions"><a href="tel:0403817265" class="btn-call">📞 0403 817 265</a></div>
+      <div class="ticks" id="ticks-harriet_cole">
+      <button class="tick" onclick="setTickAndSave('harriet_cole','contacted')" id="tick-contacted-harriet_cole">✓ Contacted</button>
+      <button class="tick" onclick="setTickAndSave('harriet_cole','cancelled')" id="tick-cancelled-harriet_cole">✕ Cancelled</button>
+      <button class="tick" onclick="setTickAndSave('harriet_cole','hold')" id="tick-hold-harriet_cole">⏸ On hold</button>
+    </div>
+    </div>
+  </div>
+  </div>
+  <div class="tier-group">
+    <div class="tier-hdr">
+      <span class="tier-dot" style="background:#1a4a8a"></span>
+      <span class="tier-label" style="color:#1a4a8a">Unlimited 6mo</span>
+      <span class="tier-count">(2)</span>
+      <span class="tier-context">Unlimited — every missed visit is unused value</span>
+    </div>
+  <div class="card card-urgent">
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Lara Nguyen</div>
+        <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap">
+          <span class="mem-badge" style="background:#1a4a8a18;color:#1a4a8a;border-color:#1a4a8a35">Unlimited 6mo</span>
+          <span class="price-badge">$62/wk</span>
+          
+        </div>
+      </div>
+      <div class="card-stats">
+        <div class="stat"><span class="stat-val" style="color:#c0392b">22d</span><span class="stat-lbl">Since last visit</span></div>
+        <div class="stat"><span class="stat-val">1</span><span class="stat-lbl">Visits/30d</span></div>
+        <div class="stat"><span class="stat-val">6.5</span><span class="stat-lbl">Avg/mo</span></div>
+        <div class="stat"><span class="stat-val" style="color:#c0392b">-85%</span><span class="stat-lbl">vs own avg</span></div>
+      </div>
+      <div class="context-note">Unlimited member paying $62/wk — only 1 visit this month vs personal avg 6.5/mo</div>
+      <div class="script script-urgent">"Hey Lara, it's Mia from Elevate Pilates — we haven't seen you in a few weeks and just wanted to check in. Everything okay? Missing you in class 💙"</div>
+      <div class="card-actions"><a href="tel:0423871540" class="btn-call">📞 0423 871 540</a></div>
+      <div class="ticks" id="ticks-lara_nguyen">
+      <button class="tick" onclick="setTickAndSave('lara_nguyen','contacted')" id="tick-contacted-lara_nguyen">✓ Contacted</button>
+      <button class="tick" onclick="setTickAndSave('lara_nguyen','cancelled')" id="tick-cancelled-lara_nguyen">✕ Cancelled</button>
+      <button class="tick" onclick="setTickAndSave('lara_nguyen','hold')" id="tick-hold-lara_nguyen">⏸ On hold</button>
+    </div>
+    </div>
+  </div>
+  <div class="card card-urgent">
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Zara Mackintosh</div>
+        <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap">
+          <span class="mem-badge" style="background:#1a4a8a18;color:#1a4a8a;border-color:#1a4a8a35">Unlimited 6mo</span>
+          <span class="price-badge">$62/wk</span>
+          
+        </div>
+      </div>
+      <div class="card-stats">
+        <div class="stat"><span class="stat-val" style="color:#c0392b">14d</span><span class="stat-lbl">Since last visit</span></div>
+        <div class="stat"><span class="stat-val">3</span><span class="stat-lbl">Visits/30d</span></div>
+        <div class="stat"><span class="stat-val">5.2</span><span class="stat-lbl">Avg/mo</span></div>
+        <div class="stat"><span class="stat-val" style="color:#c0392b">-42%</span><span class="stat-lbl">vs own avg</span></div>
+      </div>
+      <div class="context-note">Unlimited — underusing membership. 3 visits vs personal avg 5.2/mo (-42%)</div>
+      <div class="script script-urgent">"Hey Zara! Mia from Elevate Pilates here — it's been a little while since we've seen you and we just wanted to check in. How are you going? 💙"</div>
+      <div class="card-actions"><a href="tel:0427119634" class="btn-call">📞 0427 119 634</a></div>
+      <div class="ticks" id="ticks-zara_mackintosh">
+      <button class="tick" onclick="setTickAndSave('zara_mackintosh','contacted')" id="tick-contacted-zara_mackintosh">✓ Contacted</button>
+      <button class="tick" onclick="setTickAndSave('zara_mackintosh','cancelled')" id="tick-cancelled-zara_mackintosh">✕ Cancelled</button>
+      <button class="tick" onclick="setTickAndSave('zara_mackintosh','hold')" id="tick-hold-zara_mackintosh">⏸ On hold</button>
+    </div>
+    </div>
+  </div>
+  </div>
+  <div class="tier-group">
+    <div class="tier-hdr">
+      <span class="tier-dot" style="background:#1a4a8a"></span>
+      <span class="tier-label" style="color:#1a4a8a">Unlimited M2M</span>
+      <span class="tier-count">(2)</span>
+      <span class="tier-context">Unlimited — every missed visit is unused value</span>
+    </div>
+  <div class="card card-urgent">
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Tamsyn Reid</div>
+        <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap">
+          <span class="mem-badge" style="background:#1a4a8a18;color:#1a4a8a;border-color:#1a4a8a35">Unlimited M2M</span>
+          <span class="price-badge">$62/wk</span>
+          
+        </div>
+      </div>
+      <div class="card-stats">
+        <div class="stat"><span class="stat-val" style="color:#c0392b">19d</span><span class="stat-lbl">Since last visit</span></div>
+        <div class="stat"><span class="stat-val">2</span><span class="stat-lbl">Visits/30d</span></div>
+        <div class="stat"><span class="stat-val">7.1</span><span class="stat-lbl">Avg/mo</span></div>
+        <div class="stat"><span class="stat-val" style="color:#c0392b">-72%</span><span class="stat-lbl">vs own avg</span></div>
+      </div>
+      <div class="context-note">Unlimited member paying $62/wk — only 2 visits this month vs personal avg 7.1/mo</div>
+      <div class="script script-urgent">"Hey Tamsyn! Mia from Elevate Pilates here — it's been a little while since we've seen you and we just wanted to check in. How are you going? 💙"</div>
+      <div class="card-actions"><a href="tel:0401238976" class="btn-call">📞 0401 238 976</a></div>
+      <div class="ticks" id="ticks-tamsyn_reid">
+      <button class="tick" onclick="setTickAndSave('tamsyn_reid','contacted')" id="tick-contacted-tamsyn_reid">✓ Contacted</button>
+      <button class="tick" onclick="setTickAndSave('tamsyn_reid','cancelled')" id="tick-cancelled-tamsyn_reid">✕ Cancelled</button>
+      <button class="tick" onclick="setTickAndSave('tamsyn_reid','hold')" id="tick-hold-tamsyn_reid">⏸ On hold</button>
+    </div>
+    </div>
+  </div>
+  <div class="card card-urgent">
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Sienna Marchetti</div>
+        <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap">
+          <span class="mem-badge" style="background:#1a4a8a18;color:#1a4a8a;border-color:#1a4a8a35">Unlimited M2M</span>
+          <span class="price-badge">$62/wk</span>
+          
+        </div>
+      </div>
+      <div class="card-stats">
+        <div class="stat"><span class="stat-val" style="color:#555">6d</span><span class="stat-lbl">Since last visit</span></div>
+        <div class="stat"><span class="stat-val">3</span><span class="stat-lbl">Visits/30d</span></div>
+        <div class="stat"><span class="stat-val">10.5</span><span class="stat-lbl">Avg/mo</span></div>
+        <div class="stat"><span class="stat-val" style="color:#c0392b">-71%</span><span class="stat-lbl">vs own avg</span></div>
+      </div>
+      <div class="context-note">Unlimited — underusing membership. 3 visits vs personal avg 10.5/mo (-71%)</div>
+      <div class="script script-urgent">"Hey Sienna, Mia from Elevate Pilates — just a friendly check-in. We've noticed your visits have dropped a little. Everything okay? 💙"</div>
+      <div class="card-actions"><a href="tel:0411634908" class="btn-call">📞 0411 634 908</a></div>
+      <div class="ticks" id="ticks-sienna_marchetti">
+      <button class="tick" onclick="setTickAndSave('sienna_marchetti','contacted')" id="tick-contacted-sienna_marchetti">✓ Contacted</button>
+      <button class="tick" onclick="setTickAndSave('sienna_marchetti','cancelled')" id="tick-cancelled-sienna_marchetti">✕ Cancelled</button>
+      <button class="tick" onclick="setTickAndSave('sienna_marchetti','hold')" id="tick-hold-sienna_marchetti">⏸ On hold</button>
+    </div>
+    </div>
+  </div>
+  </div>
+  <div class="tier-group">
+    <div class="tier-hdr">
+      <span class="tier-dot" style="background:#1a6b3c"></span>
+      <span class="tier-label" style="color:#1a6b3c">Core</span>
+      <span class="tier-count">(2)</span>
+      <span class="tier-context">Core — check in personally</span>
+    </div>
+  <div class="card card-urgent">
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Pippa Wheatley</div>
+        <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap">
+          <span class="mem-badge" style="background:#1a6b3c18;color:#1a6b3c;border-color:#1a6b3c35">Core</span>
+          <span class="price-badge">$48/wk</span>
+          
+        </div>
+      </div>
+      <div class="card-stats">
+        <div class="stat"><span class="stat-val" style="color:#c0392b">17d</span><span class="stat-lbl">Since last visit</span></div>
+        <div class="stat"><span class="stat-val">1</span><span class="stat-lbl">Visits/30d</span></div>
+        <div class="stat"><span class="stat-val">4.8</span><span class="stat-lbl">Avg/mo</span></div>
+        <div class="stat"><span class="stat-val" style="color:#c0392b">-79%</span><span class="stat-lbl">vs own avg</span></div>
+      </div>
+      <div class="context-note">Core member — 1 visits vs personal avg 4.8/mo (-79%)</div>
+      <div class="script script-urgent">"Hey Pippa! Mia from Elevate Pilates here — it's been a little while since we've seen you and we just wanted to check in. How are you going? 💙"</div>
+      <div class="card-actions"><a href="tel:0438552103" class="btn-call">📞 0438 552 103</a></div>
+      <div class="ticks" id="ticks-pippa_wheatley">
+      <button class="tick" onclick="setTickAndSave('pippa_wheatley','contacted')" id="tick-contacted-pippa_wheatley">✓ Contacted</button>
+      <button class="tick" onclick="setTickAndSave('pippa_wheatley','cancelled')" id="tick-cancelled-pippa_wheatley">✕ Cancelled</button>
+      <button class="tick" onclick="setTickAndSave('pippa_wheatley','hold')" id="tick-hold-pippa_wheatley">⏸ On hold</button>
+    </div>
+    </div>
+  </div>
+  <div class="card card-urgent">
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Annika Voss</div>
+        <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap">
+          <span class="mem-badge" style="background:#1a6b3c18;color:#1a6b3c;border-color:#1a6b3c35">Core</span>
+          <span class="price-badge">$48/wk</span>
+          
+        </div>
+      </div>
+      <div class="card-stats">
+        <div class="stat"><span class="stat-val" style="color:#555">4d</span><span class="stat-lbl">Since last visit</span></div>
+        <div class="stat"><span class="stat-val">2</span><span class="stat-lbl">Visits/30d</span></div>
+        <div class="stat"><span class="stat-val">5.0</span><span class="stat-lbl">Avg/mo</span></div>
+        <div class="stat"><span class="stat-val" style="color:#c0392b">-60%</span><span class="stat-lbl">vs own avg</span></div>
+      </div>
+      <div class="context-note">Core member — 2 visits vs personal avg 5.0/mo (-60%)</div>
+      <div class="script script-urgent">"Hey Annika! Mia from Elevate Pilates — just checking in. We've noticed you haven't been in as much this month. Is there anything we can do to help you get back into your routine? 💙"</div>
+      <div class="card-actions"><a href="tel:0499021874" class="btn-call">📞 0499 021 874</a></div>
+      <div class="ticks" id="ticks-annika_voss">
+      <button class="tick" onclick="setTickAndSave('annika_voss','contacted')" id="tick-contacted-annika_voss">✓ Contacted</button>
+      <button class="tick" onclick="setTickAndSave('annika_voss','cancelled')" id="tick-cancelled-annika_voss">✕ Cancelled</button>
+      <button class="tick" onclick="setTickAndSave('annika_voss','hold')" id="tick-hold-annika_voss">⏸ On hold</button>
+    </div>
+    </div>
+  </div>
+  </div>
+  <div class="tier-group">
+    <div class="tier-hdr">
+      <span class="tier-dot" style="background:#6b3fa0"></span>
+      <span class="tier-label" style="color:#6b3fa0">Lite</span>
+      <span class="tier-count">(1)</span>
+      <span class="tier-context">Lite 2x/week cap — is timing the barrier?</span>
+    </div>
+  <div class="card card-urgent">
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Lily Drummond</div>
+        <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap">
+          <span class="mem-badge" style="background:#6b3fa018;color:#6b3fa0;border-color:#6b3fa035">Lite</span>
+          <span class="price-badge">$38/wk</span>
+          <span class="cap-badge">2x MAX</span>
+        </div>
+      </div>
+      <div class="card-stats">
+        <div class="stat"><span class="stat-val" style="color:#b76000">8d</span><span class="stat-lbl">Since last visit</span></div>
+        <div class="stat"><span class="stat-val">0</span><span class="stat-lbl">Visits/30d</span></div>
+        <div class="stat"><span class="stat-val">1.8</span><span class="stat-lbl">Avg/mo</span></div>
+        <div class="stat"><span class="stat-val" style="color:#c0392b">-100%</span><span class="stat-lbl">vs own avg</span></div>
+      </div>
+      <div class="context-note">Lite membership (2x/week cap) — no visits this month</div>
+      <div class="script script-urgent">"Hey Lily! Mia from Elevate Pilates — noticed you've only made it in once this month. You've got two sessions a week available — is there a day or time that works better? We'd love to help you get both in 🙌"</div>
+      <div class="card-actions"><span class="no-phone">⚠ No phone — update in Mindbody</span></div>
+      <div class="ticks" id="ticks-lily_drummond">
+      <button class="tick" onclick="setTickAndSave('lily_drummond','contacted')" id="tick-contacted-lily_drummond">✓ Contacted</button>
+      <button class="tick" onclick="setTickAndSave('lily_drummond','cancelled')" id="tick-cancelled-lily_drummond">✕ Cancelled</button>
+      <button class="tick" onclick="setTickAndSave('lily_drummond','hold')" id="tick-hold-lily_drummond">⏸ On hold</button>
+    </div>
+    </div>
+  </div>
+  </div>
+</div>
+<div class="demo-insight">
+  <span class="di-label">💡 Demo insight — notice who's not flagged</span>
+  Lily above is the only Lite member flagged Urgent — because she's on 0 visits. Every other Lite member sits safely off this list, including one who's maxing their 2x/week cap every month. Attending at your cap is healthy, not a red flag — jump to the Thriving section at the bottom to see that member recognized properly, not just silently excluded.
+</div>
+<div class="section">
+  <div class="sec-hdr"><span class="sec-badge badge-sliding">🟠 Sliding</span><span class="sec-count">3</span><span class="sec-desc">Declining vs personal average — early warning</span></div>
+  <div class="tier-group">
+    <div class="tier-hdr">
+      <span class="tier-dot" style="background:#1a4a8a"></span>
+      <span class="tier-label" style="color:#1a4a8a">Unlimited</span>
+      <span class="tier-count">(1)</span>
+    </div>
+  <div class="card card-sliding">
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Jess Okafor</div>
+        <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap">
+          <span class="mem-badge" style="background:#1a4a8a18;color:#1a4a8a;border-color:#1a4a8a35">Unlimited</span>
+          <span class="price-badge">$62/wk</span>
+          
+        </div>
+      </div>
+      <div class="card-stats">
+        <div class="stat"><span class="stat-val" style="color:#555">2d</span><span class="stat-lbl">Since last visit</span></div>
+        <div class="stat"><span class="stat-val">5</span><span class="stat-lbl">Visits/30d</span></div>
+        <div class="stat"><span class="stat-val">12.3</span><span class="stat-lbl">Avg/mo</span></div>
+        <div class="stat"><span class="stat-val" style="color:#c0392b">-59%</span><span class="stat-lbl">vs own avg</span></div>
+      </div>
+      <div class="context-note">Unlimited — -59% vs personal avg</div>
+      <div class="script script-sliding">"Hey Jess, Mia from Elevate Pilates — we've noticed your visits have dropped lately (you were averaging 12 a month and you've done 5 this month). Just wanted to check everything is okay and see if there's anything we can do to help you get back into your rhythm 💙"</div>
+      <div class="card-actions"><a href="tel:0422590137" class="btn-call">📞 0422 590 137</a></div>
+      <div class="ticks" id="ticks-jess_okafor">
+      <button class="tick" onclick="setTickAndSave('jess_okafor','contacted')" id="tick-contacted-jess_okafor">✓ Contacted</button>
+      <button class="tick" onclick="setTickAndSave('jess_okafor','cancelled')" id="tick-cancelled-jess_okafor">✕ Cancelled</button>
+      <button class="tick" onclick="setTickAndSave('jess_okafor','hold')" id="tick-hold-jess_okafor">⏸ On hold</button>
+    </div>
+    </div>
+  </div>
+  </div>
+  <div class="tier-group">
+    <div class="tier-hdr">
+      <span class="tier-dot" style="background:#1a4a8a"></span>
+      <span class="tier-label" style="color:#1a4a8a">Unlimited 6mo</span>
+      <span class="tier-count">(1)</span>
+    </div>
+  <div class="card card-sliding">
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Tara Blackwood</div>
+        <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap">
+          <span class="mem-badge" style="background:#1a4a8a18;color:#1a4a8a;border-color:#1a4a8a35">Unlimited 6mo</span>
+          <span class="price-badge">$62/wk</span>
+          
+        </div>
+      </div>
+      <div class="card-stats">
+        <div class="stat"><span class="stat-val" style="color:#555">1d</span><span class="stat-lbl">Since last visit</span></div>
+        <div class="stat"><span class="stat-val">4</span><span class="stat-lbl">Visits/30d</span></div>
+        <div class="stat"><span class="stat-val">8.7</span><span class="stat-lbl">Avg/mo</span></div>
+        <div class="stat"><span class="stat-val" style="color:#c0392b">-54%</span><span class="stat-lbl">vs own avg</span></div>
+      </div>
+      <div class="context-note">Unlimited — underusing membership. 4 visits vs personal avg 8.7/mo (-54%)</div>
+      <div class="script script-sliding">"Hey Tara, Mia from Elevate Pilates — we've noticed your visits have dropped lately (you were averaging 9 a month and you've done 4 this month). Just wanted to check everything is okay and see if there's anything we can do to help you get back into your rhythm 💙"</div>
+      <div class="card-actions"><a href="tel:0437063844" class="btn-call">📞 0437 063 844</a></div>
+      <div class="ticks" id="ticks-tara_blackwood">
+      <button class="tick" onclick="setTickAndSave('tara_blackwood','contacted')" id="tick-contacted-tara_blackwood">✓ Contacted</button>
+      <button class="tick" onclick="setTickAndSave('tara_blackwood','cancelled')" id="tick-cancelled-tara_blackwood">✕ Cancelled</button>
+      <button class="tick" onclick="setTickAndSave('tara_blackwood','hold')" id="tick-hold-tara_blackwood">⏸ On hold</button>
+    </div>
+    </div>
+  </div>
+  </div>
+  <div class="tier-group">
+    <div class="tier-hdr">
+      <span class="tier-dot" style="background:#1a6b3c"></span>
+      <span class="tier-label" style="color:#1a6b3c">Core</span>
+      <span class="tier-count">(1)</span>
+    </div>
+  <div class="card card-sliding">
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Renee Castellano</div>
+        <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap">
+          <span class="mem-badge" style="background:#1a6b3c18;color:#1a6b3c;border-color:#1a6b3c35">Core</span>
+          <span class="price-badge">$48/wk</span>
+          
+        </div>
+      </div>
+      <div class="card-stats">
+        <div class="stat"><span class="stat-val" style="color:#555">3d</span><span class="stat-lbl">Since last visit</span></div>
+        <div class="stat"><span class="stat-val">2</span><span class="stat-lbl">Visits/30d</span></div>
+        <div class="stat"><span class="stat-val">4.5</span><span class="stat-lbl">Avg/mo</span></div>
+        <div class="stat"><span class="stat-val" style="color:#c0392b">-56%</span><span class="stat-lbl">vs own avg</span></div>
+      </div>
+      <div class="context-note">Core member — 2 visits vs personal avg 4.5/mo (-56%)</div>
+      <div class="script script-sliding">"Hey Renee, Mia from Elevate Pilates — we've noticed your visits have dropped lately (you were averaging 4 a month and you've done 2 this month). Just wanted to check everything is okay and see if there's anything we can do to help you get back into your rhythm 💙"</div>
+      <div class="card-actions"><a href="tel:0418774210" class="btn-call">📞 0418 774 210</a></div>
+      <div class="ticks" id="ticks-renee_castellano">
+      <button class="tick" onclick="setTickAndSave('renee_castellano','contacted')" id="tick-contacted-renee_castellano">✓ Contacted</button>
+      <button class="tick" onclick="setTickAndSave('renee_castellano','cancelled')" id="tick-cancelled-renee_castellano">✕ Cancelled</button>
+      <button class="tick" onclick="setTickAndSave('renee_castellano','hold')" id="tick-hold-renee_castellano">⏸ On hold</button>
+    </div>
+    </div>
+  </div>
+  </div>
+</div>
+<div class="section">
+  <div class="sec-hdr"><span class="sec-badge badge-watch">👁 Watch list</span><span class="sec-count">5</span><span class="sec-desc">Low attendance — monitor this week</span></div>
+  <div class="tier-group">
+    <div class="tier-hdr">
+      <span class="tier-dot" style="background:#1a4a8a"></span>
+      <span class="tier-label" style="color:#1a4a8a">Unlimited</span>
+      <span class="tier-count">(2)</span>
+    </div>
+  <div class="card card-watch">
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Anya Petrova</div>
+        <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap">
+          <span class="mem-badge" style="background:#1a4a8a18;color:#1a4a8a;border-color:#1a4a8a35">Unlimited</span>
+          <span class="price-badge">$62/wk</span>
+          
+        </div>
+      </div>
+      <div class="card-stats">
+        <div class="stat"><span class="stat-val" style="color:#555">6d</span><span class="stat-lbl">Since last visit</span></div>
+        <div class="stat"><span class="stat-val">4</span><span class="stat-lbl">Visits/30d</span></div>
+        <div class="stat"><span class="stat-val">6.5</span><span class="stat-lbl">Avg/mo</span></div>
+        <div class="stat"><span class="stat-val" style="color:#b76000">-38%</span><span class="stat-lbl">vs own avg</span></div>
+      </div>
+      <div class="context-note">Unlimited — underusing membership. 4 visits vs personal avg 6.5/mo (-38%)</div>
+      <div class="script script-watch">"Hey Anya! Mia from Elevate Pilates here — just a friendly check-in to see how you're going. Would love to see you in class more soon 🙌"</div>
+      <div class="card-actions"><a href="tel:0447821366" class="btn-call">📞 0447 821 366</a></div>
+      <div class="ticks" id="ticks-anya_petrova">
+      <button class="tick" onclick="setTickAndSave('anya_petrova','contacted')" id="tick-contacted-anya_petrova">✓ Contacted</button>
+      <button class="tick" onclick="setTickAndSave('anya_petrova','cancelled')" id="tick-cancelled-anya_petrova">✕ Cancelled</button>
+      <button class="tick" onclick="setTickAndSave('anya_petrova','hold')" id="tick-hold-anya_petrova">⏸ On hold</button>
+    </div>
+    </div>
+  </div>
+  <div class="card card-watch">
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Maddie Svensson</div>
+        <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap">
+          <span class="mem-badge" style="background:#1a4a8a18;color:#1a4a8a;border-color:#1a4a8a35">Unlimited</span>
+          <span class="price-badge">$62/wk</span>
+          
+        </div>
+      </div>
+      <div class="card-stats">
+        <div class="stat"><span class="stat-val" style="color:#555">5d</span><span class="stat-lbl">Since last visit</span></div>
+        <div class="stat"><span class="stat-val">5</span><span class="stat-lbl">Visits/30d</span></div>
+        <div class="stat"><span class="stat-val">8.1</span><span class="stat-lbl">Avg/mo</span></div>
+        <div class="stat"><span class="stat-val" style="color:#b76000">-38%</span><span class="stat-lbl">vs own avg</span></div>
+      </div>
+      <div class="context-note">Unlimited — -38% vs personal avg</div>
+      <div class="script script-watch">"Hey Maddie! Mia from Elevate Pilates here — just a friendly check-in to see how you're going. Would love to see you in class more soon 🙌"</div>
+      <div class="card-actions"><a href="tel:0425317680" class="btn-call">📞 0425 317 680</a></div>
+      <div class="ticks" id="ticks-maddie_svensson">
+      <button class="tick" onclick="setTickAndSave('maddie_svensson','contacted')" id="tick-contacted-maddie_svensson">✓ Contacted</button>
+      <button class="tick" onclick="setTickAndSave('maddie_svensson','cancelled')" id="tick-cancelled-maddie_svensson">✕ Cancelled</button>
+      <button class="tick" onclick="setTickAndSave('maddie_svensson','hold')" id="tick-hold-maddie_svensson">⏸ On hold</button>
+    </div>
+    </div>
+  </div>
+  </div>
+  <div class="tier-group">
+    <div class="tier-hdr">
+      <span class="tier-dot" style="background:#1a4a8a"></span>
+      <span class="tier-label" style="color:#1a4a8a">Unlimited 6mo</span>
+      <span class="tier-count">(1)</span>
+    </div>
+  <div class="card card-watch">
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Isla Thornton</div>
+        <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap">
+          <span class="mem-badge" style="background:#1a4a8a18;color:#1a4a8a;border-color:#1a4a8a35">Unlimited 6mo</span>
+          <span class="price-badge">$62/wk</span>
+          
+        </div>
+      </div>
+      <div class="card-stats">
+        <div class="stat"><span class="stat-val" style="color:#555">3d</span><span class="stat-lbl">Since last visit</span></div>
+        <div class="stat"><span class="stat-val">6</span><span class="stat-lbl">Visits/30d</span></div>
+        <div class="stat"><span class="stat-val">9.2</span><span class="stat-lbl">Avg/mo</span></div>
+        <div class="stat"><span class="stat-val" style="color:#b76000">-35%</span><span class="stat-lbl">vs own avg</span></div>
+      </div>
+      <div class="context-note">Unlimited — -35% vs personal avg</div>
+      <div class="script script-watch">"Hey Isla! Mia from Elevate Pilates here — just a friendly check-in to see how you're going. Would love to see you in class more soon 🙌"</div>
+      <div class="card-actions"><a href="tel:0412883541" class="btn-call">📞 0412 883 541</a></div>
+      <div class="ticks" id="ticks-isla_thornton">
+      <button class="tick" onclick="setTickAndSave('isla_thornton','contacted')" id="tick-contacted-isla_thornton">✓ Contacted</button>
+      <button class="tick" onclick="setTickAndSave('isla_thornton','cancelled')" id="tick-cancelled-isla_thornton">✕ Cancelled</button>
+      <button class="tick" onclick="setTickAndSave('isla_thornton','hold')" id="tick-hold-isla_thornton">⏸ On hold</button>
+    </div>
+    </div>
+  </div>
+  </div>
+  <div class="tier-group">
+    <div class="tier-hdr">
+      <span class="tier-dot" style="background:#1a4a8a"></span>
+      <span class="tier-label" style="color:#1a4a8a">Unlimited M2M</span>
+      <span class="tier-count">(1)</span>
+    </div>
+  <div class="card card-watch">
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Paige Donoghue</div>
+        <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap">
+          <span class="mem-badge" style="background:#1a4a8a18;color:#1a4a8a;border-color:#1a4a8a35">Unlimited M2M</span>
+          <span class="price-badge">$62/wk</span>
+          
+        </div>
+      </div>
+      <div class="card-stats">
+        <div class="stat"><span class="stat-val" style="color:#555">4d</span><span class="stat-lbl">Since last visit</span></div>
+        <div class="stat"><span class="stat-val">4</span><span class="stat-lbl">Visits/30d</span></div>
+        <div class="stat"><span class="stat-val">6.1</span><span class="stat-lbl">Avg/mo</span></div>
+        <div class="stat"><span class="stat-val" style="color:#b76000">-34%</span><span class="stat-lbl">vs own avg</span></div>
+      </div>
+      <div class="context-note">Unlimited — underusing membership. 4 visits vs personal avg 6.1/mo (-34%)</div>
+      <div class="script script-watch">"Hey Paige! Mia from Elevate Pilates here — just a friendly check-in to see how you're going. Would love to see you in class more soon 🙌"</div>
+      <div class="card-actions"><a href="tel:0433104928" class="btn-call">📞 0433 104 928</a></div>
+      <div class="ticks" id="ticks-paige_donoghue">
+      <button class="tick" onclick="setTickAndSave('paige_donoghue','contacted')" id="tick-contacted-paige_donoghue">✓ Contacted</button>
+      <button class="tick" onclick="setTickAndSave('paige_donoghue','cancelled')" id="tick-cancelled-paige_donoghue">✕ Cancelled</button>
+      <button class="tick" onclick="setTickAndSave('paige_donoghue','hold')" id="tick-hold-paige_donoghue">⏸ On hold</button>
+    </div>
+    </div>
+  </div>
+  </div>
+  <div class="tier-group">
+    <div class="tier-hdr">
+      <span class="tier-dot" style="background:#1a6b3c"></span>
+      <span class="tier-label" style="color:#1a6b3c">Core</span>
+      <span class="tier-count">(1)</span>
+    </div>
+  <div class="card card-watch">
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Freya Albers</div>
+        <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap">
+          <span class="mem-badge" style="background:#1a6b3c18;color:#1a6b3c;border-color:#1a6b3c35">Core</span>
+          <span class="price-badge">$48/wk</span>
+          
+        </div>
+      </div>
+      <div class="card-stats">
+        <div class="stat"><span class="stat-val" style="color:#555">2d</span><span class="stat-lbl">Since last visit</span></div>
+        <div class="stat"><span class="stat-val">3</span><span class="stat-lbl">Visits/30d</span></div>
+        <div class="stat"><span class="stat-val">4.2</span><span class="stat-lbl">Avg/mo</span></div>
+        <div class="stat"><span class="stat-val" style="color:#b76000">-29%</span><span class="stat-lbl">vs own avg</span></div>
+      </div>
+      <div class="context-note">Core — -29% vs personal avg</div>
+      <div class="script script-watch">"Hey Freya! Mia from Elevate Pilates here — just a friendly check-in to see how you're going. Would love to see you in class more soon 🙌"</div>
+      <div class="card-actions"><a href="tel:0401229755" class="btn-call">📞 0401 229 755</a></div>
+      <div class="ticks" id="ticks-freya_albers">
+      <button class="tick" onclick="setTickAndSave('freya_albers','contacted')" id="tick-contacted-freya_albers">✓ Contacted</button>
+      <button class="tick" onclick="setTickAndSave('freya_albers','cancelled')" id="tick-cancelled-freya_albers">✕ Cancelled</button>
+      <button class="tick" onclick="setTickAndSave('freya_albers','hold')" id="tick-hold-freya_albers">⏸ On hold</button>
+    </div>
+    </div>
+  </div>
+  </div>
+</div>
+<div class="section">
+  <div class="sec-hdr"><span class="sec-badge badge-suspended">⏸ On suspension</span><span class="sec-count">8</span><span class="sec-desc">No outreach needed</span></div>
+  <div class="sus-card">
+    <div class="sus-name">Charlotte Bassett</div>
+    <span style="font-family:var(--mono);font-size:11px;color:var(--sub)">Returns 15 Aug 2026</span>
+  </div>
+  <div class="sus-card">
+    <div class="sus-name">Ruby Stafford</div>
+    <span style="font-family:var(--mono);font-size:11px;color:var(--sub)">Returns 3 Sep 2026</span>
+  </div>
+  <div class="sus-card">
+    <div class="sus-name">Niamh Callahan</div>
+    <span style="font-family:var(--mono);font-size:11px;color:var(--sub)">Returns 28 Nov 2026</span>
+  </div>
+  <div class="sus-card">
+    <div class="sus-name">Isabelle Kroeger</div>
+    <span class="sus-open">Open-ended</span>
+  </div>
+  <div class="sus-card">
+    <div class="sus-name">Vivienne Park</div>
+    <span class="sus-open">Open-ended</span>
+  </div>
+  <div class="sus-card">
+    <div class="sus-name">Emma Laidlaw</div>
+    <span class="sus-open">Open-ended</span>
+  </div>
+  <div class="sus-card">
+    <div class="sus-name">Olivia Carmichael</div>
+    <span class="sus-open">Open-ended</span>
+  </div>
+  <div class="sus-card">
+    <div class="sus-name">Priya Sharma</div>
+    <span class="sus-open">Open-ended</span>
+  </div>
+</div>
+
+<!-- THRIVING & CLIMBING -->
+<div class="section">
+  <div class="sec-hdr"><span class="sec-badge badge-thriving">🌟 Thriving</span><span class="sec-count">5</span><span class="sec-desc">Not just surviving — growth or consistency, no action needed</span></div>
+  <div class="thriving-note">Informational by default — these members don't need a call. Elevate Pilates has chosen to also show a short recognition message on Thriving cards (this studio's choice; it's off by default). Two paths qualify a member for Thriving: <strong>Growing</strong> (up 20%+ vs their own average) or <strong>Steady-high</strong> (consistently attending a lot, whether or not that number is climbing). A lighter <strong>Climbing</strong> tier below catches a smaller but real uptick (10-20%) — always informational only, never a script.</div>
+
+  <div class="card card-thriving">
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Ruby Ashworth</div>
+        <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap">
+          <span class="mem-badge" style="background:#1a4a8a18;color:#1a4a8a;border-color:#1a4a8a35">Unlimited</span>
+          <span class="price-badge">$62/wk</span>
+          <span class="path-badge path-growing">🌱 Growing</span>
+        </div>
+      </div>
+      <div class="card-stats">
+        <div class="stat"><span class="stat-val" style="color:#1a6b3c">8</span><span class="stat-lbl">Visits/30d</span></div>
+        <div class="stat"><span class="stat-val">5.5</span><span class="stat-lbl">Avg/mo</span></div>
+        <div class="stat"><span class="stat-val" style="color:#1a6b3c">+45%</span><span class="stat-lbl">vs own avg</span></div>
+      </div>
+      <div class="context-note">Unlimited member — up from a usual 5.5 visits/mo to 8 this month, well past the +20% Growing threshold.</div>
+      <div class="script script-thriving">"Hey Ruby, it's Mia from Elevate Pilates — we've noticed you've really ramped things up lately, up to 8 sessions this month from your usual 5.5. Just wanted to say we've noticed the extra effort — it doesn't go unnoticed 💪"</div>
+    </div>
+  </div>
+
+  <div class="card card-thriving">
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Marcus Webb</div>
+        <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap">
+          <span class="mem-badge" style="background:#1a4a8a18;color:#1a4a8a;border-color:#1a4a8a35">Unlimited</span>
+          <span class="price-badge">$62/wk</span>
+          <span class="path-badge path-steady">🎯 Steady-high</span>
+        </div>
+      </div>
+      <div class="card-stats">
+        <div class="stat"><span class="stat-val" style="color:#0d7377">13</span><span class="stat-lbl">Visits/30d</span></div>
+        <div class="stat"><span class="stat-val">12</span><span class="stat-lbl">Avg/mo</span></div>
+        <div class="stat"><span class="stat-val" style="color:#0d7377">+8%</span><span class="stat-lbl">vs own avg</span></div>
+      </div>
+      <div class="context-note">Unlimited member — 13 visits this month, above the 10/mo Steady-high bar. Not really "growing" (+8% is under the Growing threshold), but he's been at this pace for months — exactly the loyalty that Growing alone would miss.</div>
+      <div class="script script-thriving">"Hey Marcus, Mia from Elevate Pilates here — you've been an absolute regular lately, 13 sessions like clockwork. We just wanted to say we see it and we love having you in class so consistently 💙"</div>
+    </div>
+  </div>
+
+  <div class="card card-thriving">
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Jordan Petrakis</div>
+        <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap">
+          <span class="mem-badge" style="background:#6b3fa018;color:#6b3fa0;border-color:#6b3fa035">Lite</span>
+          <span class="price-badge">$38/wk</span>
+          <span class="cap-badge">2x MAX</span>
+          <span class="path-badge path-steady">🎯 Steady-high</span>
+        </div>
+      </div>
+      <div class="card-stats">
+        <div class="stat"><span class="stat-val" style="color:#0d7377">2</span><span class="stat-lbl">Visits/30d</span></div>
+        <div class="stat"><span class="stat-val">1.9</span><span class="stat-lbl">Avg/mo</span></div>
+        <div class="stat"><span class="stat-val" style="color:#0d7377">+5%</span><span class="stat-lbl">vs own avg</span></div>
+      </div>
+      <div class="context-note">Lite membership (2x/week cap) — 2 visits this month, hitting the cap exactly, same as almost every month. This is the same rule that keeps a capped-tier member from ever being wrongly flagged as Urgent — the difference is this studio also chooses to recognize it as a positive, not just quietly exclude it.</div>
+      <div class="script script-thriving">"Hey Jordan, it's Mia from Elevate Pilates — you've been an absolute regular lately, 2 sessions a week like clockwork. We just wanted to say we see it and we love having you in class so consistently 💙"</div>
+    </div>
+  </div>
+
+  <div style="font-family:var(--mono);font-size:10px;color:var(--sub);text-transform:uppercase;letter-spacing:.6px;margin:14px 0 8px">📈 Climbing — modest but real, no action needed</div>
+
+  <div class="card card-thriving" style="border-left-color:#5a9b7a">
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Leah Fitzgerald</div>
+        <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap">
+          <span class="mem-badge" style="background:#1a6b3c18;color:#1a6b3c;border-color:#1a6b3c35">Foundation</span>
+          <span class="price-badge">$48/wk</span>
+        </div>
+      </div>
+      <div class="card-stats">
+        <div class="stat"><span class="stat-val" style="color:#5a9b7a">7</span><span class="stat-lbl">Visits/30d</span></div>
+        <div class="stat"><span class="stat-val">6.0</span><span class="stat-lbl">Avg/mo</span></div>
+        <div class="stat"><span class="stat-val" style="color:#5a9b7a">+17%</span><span class="stat-lbl">vs own avg</span></div>
+      </div>
+      <div class="context-note">Foundation member — up from a usual 6 visits/mo to 7 this month. Real, but below the +20% Thriving bar — a quiet nod, nothing to action.</div>
+    </div>
+  </div>
+
+  <div class="card card-thriving" style="border-left-color:#5a9b7a">
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Noah Kessler</div>
+        <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap">
+          <span class="mem-badge" style="background:#1a4a8a18;color:#1a4a8a;border-color:#1a4a8a35">Unlimited</span>
+          <span class="price-badge">$62/wk</span>
+        </div>
+      </div>
+      <div class="card-stats">
+        <div class="stat"><span class="stat-val" style="color:#5a9b7a">5</span><span class="stat-lbl">Visits/30d</span></div>
+        <div class="stat"><span class="stat-val">4.4</span><span class="stat-lbl">Avg/mo</span></div>
+        <div class="stat"><span class="stat-val" style="color:#5a9b7a">+14%</span><span class="stat-lbl">vs own avg</span></div>
+      </div>
+      <div class="context-note">Unlimited member — a modest uptick vs his usual pace. Climbing cards never get a script or contact button, regardless of the Thriving acknowledgment setting above.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const SK='rr_demo_ticks';
+function loadTicks(){try{return JSON.parse(localStorage.getItem(SK)||'{}')}catch{return{}}}
+function saveTicks(t){try{localStorage.setItem(SK,JSON.stringify(t))}catch{}}
+function setTick(uid,action){
+  const t=loadTicks();t[uid]=(t[uid]===action)?null:action;saveTicks(t);applyTick(uid,t[uid]);
+}
+function applyTick(uid,action){
+  ['contacted','cancelled','hold'].forEach(b=>{
+    const el=document.getElementById('tick-'+b+'-'+uid);
+    if(!el)return;el.className='tick'+(action===b?' tick-'+b:'');
+  });
+}
+function setTickAndSave(uid,action){
+  setTick(uid,action);
+  const now=new Date().toLocaleString('en-AU',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+  localStorage.setItem('rr_ticks_saved',now);
+  const el=document.getElementById('ticks-saved');
+  if(el)el.textContent='Ticks last saved: '+now;
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  const t=loadTicks();
+  Object.entries(t).forEach(([uid,action])=>{if(action)applyTick(uid,action)});
+  const saved=localStorage.getItem('rr_ticks_saved');
+  const el=document.getElementById('ticks-saved');
+  if(el)el.textContent=saved?'Ticks last saved: '+saved:'Ticks save automatically to this device';
+});
+</script>
+</div></body></html>
