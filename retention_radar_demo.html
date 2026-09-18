@@ -69,6 +69,7 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Hel
 .section-head .count{margin-left:auto;font-size:11px;color:var(--sub);background:var(--bg);border-radius:20px;padding:3px 10px}
 
 .tier-head{font-size:11px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.4px;margin:12px 0 6px;padding-left:2px}
+.subsection-head{font-size:12.5px;font-weight:800;color:var(--red);text-transform:uppercase;letter-spacing:.4px;margin:18px 0 4px;padding-left:2px;border-bottom:1px solid var(--red);padding-bottom:4px}
 
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
 .card.flag-red{border-left:4px solid var(--red)}
@@ -253,6 +254,8 @@ footer{text-align:center;font-size:11px;color:#9aa0ab;padding:24px 0}
   <!-- URGENT -->
   <div class="section-head" id="sec-urgent"><div class="dot" style="background:var(--red)"></div><h2>Urgent — call today</h2><div class="count">4</div></div>
 
+  <div class="subsection-head">Ghosts — 14+ days absent</div>
+
   <div class="tier-head">Unlimited</div>
   <div class="card flag-red" data-name="Sarah Mitchell">
     <div class="card-top">
@@ -289,6 +292,26 @@ footer{text-align:center;font-size:11px;color:#9aa0ab;padding:24px 0}
     <textarea class="notes" data-notes="Jasmine Cole" placeholder="Notes..."></textarea>
   </div>
 
+  <div class="tier-head">Limited Lite</div>
+  <div class="card flag-red" data-name="Noah Patel">
+    <div class="card-top">
+      <div><div class="card-name">Noah Patel</div><div class="badges"><span class="badge tier3">Limited Lite</span><span class="badge price">$45/wk</span><span class="badge cap">2x MAX</span></div><div class="phone">📞 0400 111 227</div></div>
+      <a class="call-btn" href="tel:+61400111227">Call</a>
+    </div>
+    <div class="stats">
+      <div class="stat warn">18 days<br><span style="font-size:9px">since last visit</span></div>
+      <div class="stat warn">0<br><span style="font-size:9px">visits/30d</span></div>
+      <div class="stat">2/mo<br><span style="font-size:9px">personal avg</span></div>
+      <div class="stat warn">−100%<br><span style="font-size:9px">vs own avg</span></div>
+    </div>
+    <div class="context">Ghost — 18 days absent. Not maxing his 2x/week cap this month, so the Limited Lite cap protection doesn't apply here — the 14-day ghost rule always overrides.</div>
+    <div class="script">"Hey Noah! Mia from Elevate Pilates — noticed you've only made it in once this month. You've got two sessions a week available — is there a day or time that might work better? We'd love to help you get both in 🙌"</div>
+    <div class="ticks" data-ticks="Noah Patel"></div>
+    <textarea class="notes" data-notes="Noah Patel" placeholder="Notes..."></textarea>
+  </div>
+
+  <div class="subsection-head">Urgent — Declining</div>
+
   <div class="tier-head">Foundation</div>
   <div class="card flag-red" data-name="Emma Zhou">
     <div class="card-top">
@@ -302,28 +325,10 @@ footer{text-align:center;font-size:11px;color:#9aa0ab;padding:24px 0}
       <div class="stat warn">−86%<br><span style="font-size:9px">vs own avg</span></div>
     </div>
     <div class="next-class scheduled">📅 Next class: Thu 31 Jul</div>
-    <div class="context">Foundation member paying $45/wk — only 1 visit this month vs avg 7.2/mo.</div>
+    <div class="context">At or below her Foundation tier threshold AND declining −86% vs her own average (well past the −20% Urgent — Declining threshold) — not yet a ghost at 9 days, but a meaningful drop from her norm.</div>
     <div class="script">"Hey Emma! It's Mia from Elevate Pilates — we've noticed you haven't been in as much this month and just wanted to check in. Is there anything we can do to help you get back into your routine? 💙"</div>
     <div class="ticks" data-ticks="Emma Zhou"></div>
     <textarea class="notes" data-notes="Emma Zhou" placeholder="Notes..."></textarea>
-  </div>
-
-  <div class="tier-head">Limited Lite</div>
-  <div class="card flag-red" data-name="Noah Patel">
-    <div class="card-top">
-      <div><div class="card-name">Noah Patel</div><div class="badges"><span class="badge tier3">Limited Lite</span><span class="badge price">$45/wk</span><span class="badge cap">2x MAX</span></div><div class="phone">📞 0400 111 227</div></div>
-      <a class="call-btn" href="tel:+61400111227">Call</a>
-    </div>
-    <div class="stats">
-      <div class="stat warn">18 days<br><span style="font-size:9px">since last visit</span></div>
-      <div class="stat warn">0<br><span style="font-size:9px">visits/30d</span></div>
-      <div class="stat">2/mo<br><span style="font-size:9px">personal avg</span></div>
-      <div class="stat warn">−100%<br><span style="font-size:9px">vs own avg</span></div>
-    </div>
-    <div class="context">2x/week cap — 0 visits this month, not maxing his cap.</div>
-    <div class="script">"Hey Noah! Mia from Elevate Pilates — noticed you've only made it in once this month. You've got two sessions a week available — is there a day or time that might work better? We'd love to help you get both in 🙌"</div>
-    <div class="ticks" data-ticks="Noah Patel"></div>
-    <textarea class="notes" data-notes="Noah Patel" placeholder="Notes..."></textarea>
   </div>
 
   <!-- SLIDING -->
@@ -665,18 +670,39 @@ footer{text-align:center;font-size:11px;color:#9aa0ab;padding:24px 0}
 <script>
 const TICK_STATES = ['Contacted','Cancelled','On hold'];
 
+// ── LOCALSTORAGE SAFETY ──────────────────────────────────────
+// Opening this file directly from a device's file system or a messaging
+// app (rather than through a web server) can trigger a browser "opaque
+// origin" restriction that blocks all Storage API access. Every read/
+// write goes through this wrapper so a blocked call falls back to an
+// in-memory store instead of throwing — an unguarded call here would
+// otherwise stop the whole script and leave every section blank with
+// no visible error.
+const memoryStore = {};
+let storageAvailable = true;
+const safeStorage = {
+  get(key) {
+    try { return localStorage.getItem(key); }
+    catch (e) { storageAvailable = false; return Object.prototype.hasOwnProperty.call(memoryStore, key) ? memoryStore[key] : null; }
+  },
+  set(key, value) {
+    try { localStorage.setItem(key, value); }
+    catch (e) { storageAvailable = false; memoryStore[key] = value; }
+  }
+};
+
 function renderTicks(container) {
   const name = container.dataset.ticks;
-  const saved = JSON.parse(localStorage.getItem('demo_ticks_'+name) || '[]');
+  const saved = JSON.parse(safeStorage.get('demo_ticks_'+name) || '[]');
   container.innerHTML = '';
   TICK_STATES.forEach(t => {
     const btn = document.createElement('button');
     btn.className = 'tick' + (saved.includes(t) ? ' on' : '');
     btn.textContent = (t==='Contacted'?'✓ ':t==='Cancelled'?'✕ ':'⏸ ') + t;
     btn.onclick = () => {
-      let s = JSON.parse(localStorage.getItem('demo_ticks_'+name) || '[]');
+      let s = JSON.parse(safeStorage.get('demo_ticks_'+name) || '[]');
       if (s.includes(t)) s = s.filter(x=>x!==t); else s.push(t);
-      localStorage.setItem('demo_ticks_'+name, JSON.stringify(s));
+      safeStorage.set('demo_ticks_'+name, JSON.stringify(s));
       renderTicks(container);
     };
     container.appendChild(btn);
@@ -686,22 +712,22 @@ document.querySelectorAll('[data-ticks]').forEach(renderTicks);
 
 document.querySelectorAll('[data-notes]').forEach(el => {
   const name = el.dataset.notes;
-  const saved = localStorage.getItem('demo_notes_'+name);
+  const saved = safeStorage.get('demo_notes_'+name);
   if (saved !== null) el.value = saved;
-  el.addEventListener('input', () => localStorage.setItem('demo_notes_'+name, el.value));
+  el.addEventListener('input', () => safeStorage.set('demo_notes_'+name, el.value));
 });
 
 document.querySelectorAll('[data-reason]').forEach(el => {
   const name = el.dataset.reason;
-  const saved = localStorage.getItem('demo_reason_'+name);
+  const saved = safeStorage.get('demo_reason_'+name);
   if (saved) el.value = saved;
-  el.addEventListener('change', () => localStorage.setItem('demo_reason_'+name, el.value));
+  el.addEventListener('change', () => safeStorage.set('demo_reason_'+name, el.value));
 });
 
 function toggleFlag(btn) {
   const key = 'demo_flag_' + btn.dataset.toggle;
-  const on = localStorage.getItem(key) === '1';
-  localStorage.setItem(key, on ? '0' : '1');
+  const on = safeStorage.get(key) === '1';
+  safeStorage.set(key, on ? '0' : '1');
   btn.classList.toggle('on', !on);
   if (btn.dataset.toggle.endsWith(':exit')) {
     btn.textContent = !on ? 'Exit Interview ✓' : 'Exit Interview';
@@ -713,14 +739,23 @@ function toggleFlag(btn) {
 }
 // restore toggle states on load
 document.querySelectorAll('[data-toggle]').forEach(btn => {
-  const on = localStorage.getItem('demo_flag_'+btn.dataset.toggle) === '1';
+  const on = safeStorage.get('demo_flag_'+btn.dataset.toggle) === '1';
   if (on) toggleFlag.call(null, btn), btn.classList.add('on');
 });
 
 const churnBox = document.getElementById('churnBox');
-const savedChurn = localStorage.getItem('demo_churn');
+const savedChurn = safeStorage.get('demo_churn');
 if (savedChurn) churnBox.value = savedChurn;
-churnBox.addEventListener('input', () => localStorage.setItem('demo_churn', churnBox.value));
+churnBox.addEventListener('input', () => safeStorage.set('demo_churn', churnBox.value));
+
+// Show a small on-page notice if storage turned out to be unavailable,
+// rather than letting the report fail with no explanation.
+if (!storageAvailable) {
+  const notice = document.createElement('div');
+  notice.style.cssText = 'background:#fff3cd;border:1px solid #ffc107;color:#7a5b00;padding:10px 14px;border-radius:8px;font-size:12.5px;margin:12px 16px;text-align:center';
+  notice.textContent = "⚠ Ticks and notes won't be saved this session — this file was opened in a mode that blocks local storage. Open it through a web link instead to keep your progress.";
+  document.body.insertBefore(notice, document.body.firstChild);
+}
 
 function addFlag() {
   const input = document.getElementById('flagInput');

@@ -269,6 +269,13 @@ body{background:var(--bg);font-family:var(--sans);color:var(--text);font-size:14
     <div style="font-size:11px;color:var(--sub);margin-bottom:12px">Days absent before a member is flagged as urgent ghost. Locked at 14 days — this is the proven retention science threshold.</div>
 
     <div class="slider-row">
+      <label>Urgent — declining threshold</label>
+      <input type="range" min="10" max="30" step="5" value="20" id="urgent_decline_thresh" oninput="document.getElementById('uv').textContent='-'+this.value+'%'">
+      <span class="slider-val" id="uv">-20%</span>
+    </div>
+    <div style="font-size:11px;color:var(--sub);margin-bottom:12px">A member already at or below their tier threshold ALSO needs to be declining by this much vs their own average to land in Urgent — a small dip below threshold on its own isn't urgent. Tested range: -10% to -30%. Default: -20%. This is separate from the 14-day Ghost rule above; a ghost is always urgent regardless of this number.</div>
+
+    <div class="slider-row">
       <label>Climbing threshold</label>
       <input type="range" min="5" max="20" step="5" value="10" id="climbing_thresh" oninput="document.getElementById('cv').textContent='+'+this.value+'%'; validateGrowthThresholds()">
       <span class="slider-val" id="cv" style="color:var(--green)">+10%</span>
@@ -385,6 +392,7 @@ body{background:var(--bg);font-family:var(--sans);color:var(--text);font-size:14
     <label class="check-item"><input type="checkbox" id="sec_milestone" onchange="checkMilestoneWatch()"><div><div class="check-label">🏅 Milestone Watch</div><div class="check-desc">Celebrates members within 3 classes of a lifetime visit milestone — you choose the clubs, thresholds, and colours below. Adds one extra report to Monday's routine (see note below if turned on).</div></div></label>
     <label class="check-item"><input type="checkbox" id="sec_nextclass" onchange="checkNextClassWatch()"><div><div class="check-label">📅 Next Class Scheduled</div><div class="check-desc">Shows whoever's making the calls whether a member already has a future class booked, and when. Adds one extra report to Monday's routine (see note below if turned on).</div></div></label>
     <label class="check-item"><input type="checkbox" id="sec_packs" onchange="checkPacksSection()"><div><div class="check-label">🎟️ Pack holders</div><div class="check-desc">Tracks class-pack (non-recurring) holders separately from memberships — not yet activated, expiring soon with sessions left, and expired unused. Needs an extra Mindbody report (see note below if turned on).</div></div></label>
+    <label class="check-item"><input type="checkbox" id="sec_membershipfit" onchange="checkMembershipFit()"><div><div class="check-label">🎯 Membership Fit</div><div class="check-desc">Value-fit nudges for healthy members only — flags who could save money on a smaller plan, and who's maxing out a capped plan and might want Unlimited. No extra Mindbody report needed; it reuses data already pulled for flagging.</div></div></label>
   </div>
 
   <div class="tip" id="milestone-info" style="display:none">🏅 <strong>Milestone Watch needs one extra Mindbody report</strong> — the First Visit Report, run from your studio's opening date to today (not a today-snapshot like the others). It's added as Report 10 to your Guide and weekly routine. Full instructions are included automatically in the project instructions you generate below.
@@ -434,6 +442,8 @@ body{background:var(--bg);font-family:var(--sans);color:var(--text);font-size:14
       </select>
     </div>
   </div>
+
+  <div class="tip" id="membershipfit-info" style="display:none">🎯 <strong>Membership Fit is a value nudge, not a risk flag</strong> — it never touches a member who's already Urgent, Sliding, or Watch that week. It only looks at healthy, stable, or thriving members and computes everything from data already pulled for the flag logic above, so it needs no extra Mindbody report. Full instructions are included automatically in the project instructions you generate below.</div>
 
   <div class="tip" id="owner-escalation-info" style="display:block">
     <strong>⚑ Choose what gets escalated to the owner</strong> — data/verification failures (wrong file, filter left on, missing columns) are always included regardless of what's ticked below. Everything else is optional, all on by default:
@@ -791,13 +801,14 @@ function updateReview() {
       ${tiers.map(t => `<div style="font-family:var(--mono);font-size:12px;padding:2px 0">"${t.mb}" → ${t.label || 'Unnamed tier'}</div>`).join('') || '<div style="font-size:12px;color:var(--sub)">No tiers added yet.</div>'}
       ${nameIssues.length ? `<div class="warn" style="margin:10px 0 0">${nameIssues.map(m=>'⚠ '+m).join('<br><br>')}</div>` : ''}
     </div><br>
-    <strong>Thresholds:</strong> Sliding ${getSlidingValue()}% · Watch ${document.getElementById('watch_thresh').value}% · Climbing +${document.getElementById('climbing_thresh').value}% · Thriving +${document.getElementById('thriving_thresh').value}% · Ghost 14d (locked)<br>
+    <strong>Thresholds:</strong> Sliding ${getSlidingValue()}% · Watch ${document.getElementById('watch_thresh').value}% · Climbing +${document.getElementById('climbing_thresh').value}% · Thriving +${document.getElementById('thriving_thresh').value}% · Ghost 14d (locked) · Urgent-declining -${document.getElementById('urgent_decline_thresh').value}%<br>
     <strong>Contact:</strong> ${contact.join(', ') || '—'} · Tone: ${tone} · Emoji: ${emoji}<br>
     <strong>Sections:</strong> ${getSections().join(', ')}<br>
     <strong>Owner escalations:</strong> ${getOwnerEscalations().length ? getOwnerEscalations().length + ' triggers selected (plus verification failures, always on)' : 'Off, or none selected beyond mandatory verification failures'}<br>
     <strong>Milestone Watch:</strong> ${document.getElementById('sec_milestone')?.checked ? getMilestoneClubs().map(c => `${c.name} (${c.threshold}+)`).join(', ') || 'On, but no clubs configured yet' : 'Off'}<br>
     <strong>Next Class Scheduled:</strong> ${document.getElementById('sec_nextclass')?.checked ? 'On, checking ' + getNextClassWindow() + ' days ahead' : 'Off'}<br>
     <strong>Pack holders:</strong> ${document.getElementById('sec_packs')?.checked ? 'On, flagging packs expiring within ' + getPacksWindow() + ' days' : 'Off'}<br>
+    <strong>Membership Fit:</strong> ${document.getElementById('sec_membershipfit')?.checked ? 'On, value nudges for healthy members only' : 'Off'}<br>
     <strong>Cross-device sync:</strong> ${document.getElementById('sync_enabled')?.checked ? 'On — coordinator creates their own login the first time they open the report' : 'Off — this studio stays on one device only'}
   `;
 }
@@ -833,6 +844,7 @@ function getSections() {
   if(thrivingOn==='yes') secs.push('Thriving');
   if(document.getElementById('sec_milestone')?.checked) secs.push('Milestone Watch');
   if(document.getElementById('sec_packs')?.checked) secs.push('Pack holders');
+  if(document.getElementById('sec_membershipfit')?.checked) secs.push('Membership Fit');
   return secs;
 }
 let logoDataUri = '';
@@ -893,6 +905,10 @@ function checkPacksSection() {
 }
 function getPacksWindow() {
   return document.getElementById('packs_window')?.value || '7';
+}
+function checkMembershipFit() {
+  const on = document.getElementById('sec_membershipfit')?.checked;
+  document.getElementById('membershipfit-info').style.display = on ? '' : 'none';
 }
 
 let milestoneClubCount = 0;
@@ -1160,9 +1176,16 @@ is a welcome-back: teal card, warm script, never flagged as at-risk. If
 
 ## STEP 4 — FLAG LOGIC (apply in order, stop at the first match)
 1. URGENT (red) — either: (a) 14+ days since last visit ("ghost" — this
-   is GHOST_THRESHOLD below, always 14, always overrides everything
-   else regardless of any other number), or (b) visits this month at or
-   below that member's tier threshold AND declining vs their own average.
+   is GHOST_THRESHOLD below, always overrides everything else), or (b)
+   visits this month at or below that member's tier threshold AND
+   declining by at least URGENT_DECLINE_THRESHOLD% vs their own average
+   (not just any decline — a small dip below threshold is not on its own
+   urgent; it must be a meaningful drop from that member's own norm).
+   Within the report, split Urgent into two permanent, separately
+   labeled subgroups, Ghosts always shown first: "Ghosts" (14+ days
+   absent) and "Urgent — Declining" (threshold + meaningful decline).
+   Both stay the same red and the same section — this is a display
+   split for the coordinator, not two different flags.
 2. SLIDING (amber) — not urgent, but declining by SLIDING_THRESHOLD or
    more vs their own 6-month average (only if they have an established
    average).
@@ -1219,6 +1242,17 @@ Thriving via the Steady-high path (defined in STEP 4 above) — being maxed out 
 capped membership is a loyalty signal worth recognizing, not just an
 absence of a flag.
 
+Tier thresholds should be derived from this studio's own attendance data
+during setup, not picked as a flat round number. Recommended one-time
+calibration: for each tier, pull the 6-month average visits/month across
+that tier's currently active, non-flagged members, and set the threshold
+near the 25th percentile of that distribution — the point that separates
+genuinely low attendance from what's normal for that tier. A threshold
+set above the median will flag most members on that tier by default
+regardless of whether they're actually declining, which defeats the
+threshold's purpose. Re-calibrate if the studio's membership mix changes
+significantly (e.g. after a pricing change or a large membership drive).
+
 ## STEP 6 — ACTIVE MEMBER COUNT
 Sum paying members from the Active Member Count report, excluding Class
 Pack and Comp totals. If that file looks wrong, use last week's count
@@ -1265,9 +1299,12 @@ acquisition signal. Track both, don't combine them into one number.
 ## STEP 8 — REPORT SECTION ORDER (fixed — don't reorder)
 Build only the sections listed in SECTIONS below, always in this order:
 Summary bar → Briefing → Owner escalations → Financial → New members →
-Welcome backs → Urgent (grouped by tier, most-absent-first within each
-group) → Sliding → Watch list → Pack holders (see PACK HOLDERS section
-below, if included) → Suspended (always included regardless
+Welcome backs → Urgent (Ghosts first, then Urgent — Declining, each
+grouped by tier, most-absent-first within each group — see STEP 4 above)
+→ Sliding → Watch list → Pack holders (see PACK HOLDERS section below,
+if included) → Membership Fit (see MEMBERSHIP FIT section below, if
+included — Could downgrade cards first, then Could upgrade) → Suspended
+(always included regardless
 of SECTIONS — required for data accuracy, never hidden; sorted soonest
 end date first, see SUSPENDED SECTION above) → Cancelled (always
 included, same reason as Suspended — see CANCELLED MEMBER TRACKING
@@ -1533,6 +1570,29 @@ worked through, so don't give them a completion state. Climbing cards
 are simpler still: name, tier badge, and the positive stat (e.g. "15%
 more than their usual pace"), no path label, no script, no tick boxes.
 
+## LOCALSTORAGE SAFETY (critical — never skip this)
+Every localStorage.getItem and localStorage.setItem call in the report's
+JavaScript must be wrapped in try/catch, falling back to an in-memory
+object when storage access throws. Opening the HTML file directly from a
+device's file system or a messaging app (rather than through a web
+server) can trigger a browser restriction known as an "opaque origin,"
+which blocks all Storage API access and throws an error the first time
+anything touches localStorage.
+
+If even one unguarded localStorage call sits ahead of the page's render
+calls in the initialization sequence, that error stops the whole script
+silently — every section stays blank (only the static header and section
+titles show) with no visible error, because the failure happens before
+any content-rendering function runs.
+
+This must be verified by actually executing the generated page's
+JavaScript (e.g. in a headless browser) before considering a build
+finished — a plain syntax check does not catch this, since the code is
+syntactically valid and only fails at runtime under this specific origin
+condition. If storage is genuinely unavailable, show a small on-page
+notice explaining that ticks and notes won't be saved this session,
+rather than letting the report fail with no explanation.
+
 ## MOBILE USABILITY (applies to every build — the coordinator works this report almost entirely on a phone, often one-handed and between calls)
 - Tap targets: the Call button and every tick button (Contacted/Cancelled/
   On hold, Exit Interview, Celebrated, etc.) must be at least 44px tall —
@@ -1772,6 +1832,7 @@ selected.
 - Every card with a Call button always shows the member's phone number as plain text, not just embedded inside the button link — never remove this even if asked, since it's what lets a coordinator choose to text or send a voice message instead of calling.
 - Pack Holders (if enabled) is evaluated independently of the Urgent/Sliding/Watch tier logic in STEP 4/5 — never apply cap/threshold math to a class-pack holder, and never fold pack holders into the tier-based flag sections. Pack holders remain excluded from Active Member Count/breakeven and their revenue stays Discretionary, exactly as before this feature existed.
 - Verification runs before every build; stop if anything fails.
+- Every localStorage call is wrapped in try/catch with an in-memory fallback — an unguarded call must never be able to blank the whole report.
 If a studio owner asks to change any rule on this list, don't change it —
 explain why it's locked and offer to find another way to get what they want.
 
@@ -2016,6 +2077,59 @@ After Watch list, before Suspended — see STEP 8 above for the full
 fixed section order.
 `;
 
+// Only appended when the studio has turned Membership Fit on (see
+// STUDIO CONFIG → MEMBERSHIP_FIT below). Not a churn-risk section — it
+// only evaluates members who are already healthy, stable, or thriving,
+// and is computed entirely from data already pulled for the flag-logic
+// step, so it needs no extra Mindbody report.
+const MEMBERSHIP_FIT_INSTRUCTIONS = `# ══════════════════════════════════════════
+# MEMBERSHIP FIT — ADDITIONAL BUILD INSTRUCTIONS (this studio has it ON)
+# ══════════════════════════════════════════
+
+## WHAT IT IS
+A section that helps members get better value from their membership —
+not a churn-risk flag. Two directions: members paying for an Unlimited
+plan whose attendance would fit comfortably (and more cheaply) on a
+capped plan, and members on a capped plan consistently using it right up
+to its limit who'd benefit from upgrading. No new report is required —
+this is computed entirely from data already pulled for the flag-logic
+step (attendance averages) cross-referenced against each member's
+current tier and that tier's price, both already known from TIERS below.
+
+## EXCLUSION — read before flagging
+Never include a member here who is already flagged Urgent, Sliding, or
+Watch that week. Those members are already getting a different, more
+urgent message; a membership-fit conversation would muddy it. Only
+healthy, stable, or thriving members qualify for this section.
+
+## COULD DOWNGRADE
+A member on an Unlimited-priced tier whose 6-month average visits/month
+falls within the normal range for a capped tier (use that capped tier's
+own median or 25th–75th percentile band from the STEP 5 calibration
+above, not an arbitrary number) qualifies. Show the price difference as
+a concrete monthly saving: (current tier's weekly price − candidate
+tier's weekly price) × 30/7.
+
+## COULD UPGRADE
+A member on a capped tier whose 6-month average sits at or near that
+tier's cap (e.g. 85%+ of the monthly-equivalent cap) consistently
+qualifies — they're getting close to maximum value from a limited plan
+and may benefit from the freedom of Unlimited.
+
+## CARD CONTENTS
+Name, tier badge, a second badge reading "Could downgrade" or "Could
+upgrade", a one-line context note stating their actual average and the
+concrete dollar saving or added headroom, a warm non-salesy script (this
+is a value/fit conversation, not a churn save or an upsell push), the
+same tick buttons and persistent notes field as every other card (see
+PERSISTENT MEMBER NOTES above — reuse that system, don't build a second
+one), and a Hide control (see HIDE / DECLUTTER A CARD above).
+
+## SECTION PLACEMENT
+After Pack Holders, before Suspended — see STEP 8 above for the full
+fixed section order.
+`;
+
 // ── GENERATE CONFIG ──────────────────────────────────────────
 function generateConfig() {
   // Final safety net: re-check every tier row for cap/threshold mismatches
@@ -2041,6 +2155,7 @@ function generateConfig() {
   const sliding = getSlidingValue();
   const slidingIsCustom = document.getElementById('sliding_custom_toggle')?.checked && v('sliding_custom');
   const watch = document.getElementById('watch_thresh').value;
+  const urgentDecline = document.getElementById('urgent_decline_thresh').value;
   const thrivingOn = document.querySelector('input[name="thriving_on"]:checked')?.value === 'yes';
   const climbingThresh = document.getElementById('climbing_thresh').value;
   const thrivingThresh = document.getElementById('thriving_thresh').value;
@@ -2052,12 +2167,13 @@ function generateConfig() {
   const nextClassWindow = getNextClassWindow();
   const packsOn = document.getElementById('sec_packs')?.checked;
   const packsWindow = getPacksWindow();
+  const membershipFitOn = document.getElementById('sec_membershipfit')?.checked;
 
   let tierLines = tiers.map(t =>
     `    "${t.mb}" → ${t.label} | ${t.price} | threshold: ${t.threshold || '?'} visits/30d${t.cap ? ' | cap: '+t.cap+'x/week (NEVER flag if at cap)' : ''}`
   ).join('\n');
 
-  const config = BUILD_INSTRUCTIONS + (milestoneOn ? MILESTONE_WATCH_INSTRUCTIONS : '') + (nextClassOn ? NEXT_CLASS_INSTRUCTIONS : '') + (packsOn ? PACKS_INSTRUCTIONS : '') + `# ══════════════════════════════════════════
+  const config = BUILD_INSTRUCTIONS + (milestoneOn ? MILESTONE_WATCH_INSTRUCTIONS : '') + (nextClassOn ? NEXT_CLASS_INSTRUCTIONS : '') + (packsOn ? PACKS_INSTRUCTIONS : '') + (membershipFitOn ? MEMBERSHIP_FIT_INSTRUCTIONS : '') + `# ══════════════════════════════════════════
 # RETENTION RADAR — STUDIO CONFIG
 # Generated: ${new Date().toLocaleDateString('en-AU',{day:'numeric',month:'long',year:'numeric'})}
 # ══════════════════════════════════════════
@@ -2088,7 +2204,8 @@ ${tiers.map(t => `    "${t.mb}" → ${t.label} | ${t.price} | threshold: ${t.thr
 # the Watch threshold below and the two stop being distinct signals; above
 # -60% risks catching decline too late to matter). Adjustable anytime by
 # revisiting the Setup Sheet.${slidingIsCustom ? '\n# This studio has set a custom Sliding value outside that tested range.' : ''}
-GHOST_THRESHOLD: 14 days absent (LOCKED — never changes)
+GHOST_THRESHOLD: 14 days absent (LOCKED — never changes, always overrides everything else)
+URGENT_DECLINE_THRESHOLD: -${urgentDecline}% vs member own average (required alongside tier threshold for Urgent — Declining; a ghost never needs this, see GHOST_THRESHOLD above)
 SLIDING_THRESHOLD: -${sliding}% vs member own 6-month average
 WATCH_THRESHOLD: -${watch}% vs member own average (or visits ≤ 4 AND declining)
 CLIMBING_THRESHOLD: ${thrivingOn ? '+'+climbingThresh+'% to just under +'+thrivingThresh+'% vs member own 6-month average (lighter-touch tier, no script)' : 'Not included — Thriving section disabled'}
@@ -2127,6 +2244,9 @@ NEXT_CLASS_WINDOW_DAYS: ${nextClassWindow} (used to run Report 11 and in the "No
 PACK_HOLDERS: ${packsOn ? `ON — see PACK HOLDERS build instructions above. Requires Report 12 (Visits Remaining), in addition to whichever other reports this studio already runs. Only available on Mindbody's Accelerate, Ultimate, or Ultimate Pro plans — confirm this studio has access before building.
 PACK_EXPIRING_WINDOW_DAYS: ${packsWindow} (used in the "expiring soon" bucket and its card text — never hardcode 7, always use this number)` : 'Off — this studio does not sell class packs, or has chosen not to track them separately.'}
 
+# MEMBERSHIP FIT
+MEMBERSHIP_FIT: ${membershipFitOn ? 'ON — see MEMBERSHIP FIT build instructions above. No extra Mindbody report needed; computed from data already pulled for the flag logic.' : 'Off — this studio has chosen not to show value-fit nudges.'}
+
 # RULES THAT NEVER CHANGE (do not modify)
 - Comp memberships (above name) always excluded from all flags and counts — except Milestone Watch, which always includes them
 - Suspended members always cross-referenced before flagging
@@ -2141,6 +2261,7 @@ PACK_EXPIRING_WINDOW_DAYS: ${packsWindow} (used in the "expiring soon" bucket an
 - If Client Contact Details is locked by this studio's Mindbody permission level, use the Mailing List report instead (Reports → Clients → Mailing Lists) — generated for all clients, never filtered to opted-in-only, or members will be wrongly dropped and auto-pruned
 - Every card with a Call button always shows the member's phone number as plain text, not just inside the Call button itself
 - Pack holders (if on) are excluded from Active Member Count/breakeven and their revenue is always Discretionary, same as before this feature existed
+- Every localStorage call is wrapped in try/catch with an in-memory fallback — an unguarded call must never be able to blank the whole report
 
 # END CONFIG`;
 
